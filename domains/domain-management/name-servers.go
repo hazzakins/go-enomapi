@@ -1,3 +1,4 @@
+package domainmanagement
 
 // TODO: AddDnsSec
 // TODO: CheckNSStatus

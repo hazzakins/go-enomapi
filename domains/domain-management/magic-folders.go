@@ -1,4 +1,4 @@
-
+package domainmanagement
 
 // TODO: AddDomainFolder
 // TODO: DeleteDomainFolder
