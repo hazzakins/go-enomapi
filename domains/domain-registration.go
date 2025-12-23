@@ -8,15 +8,12 @@ import (
 	"github.com/hazzakins/go-enomapi/response"
 )
 
-type Client struct {
-	*enomapi.Client
-}
-
 // TODO: AddBulkDomains
 // Upstream documentation: https://api.enom.com/docs/addbulkdomains
 // TODO: CancelOrder
 // Upstream documentation: https://api.enom.com/docs/cancel-order
 
+// Upstream documentation: https://api.enom.com/docs/check
 func (c *Client) Check(domain enomapi.Domain) (*response.DomainCheck, error) {
 	resp := internal.DomainCheckResponse{}
 
