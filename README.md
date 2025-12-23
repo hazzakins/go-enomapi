@@ -3,6 +3,8 @@
 
 A lightweight Go client for the ENOM API to be used by other Go projects.
 
+Inspiration Taken from https://git.sr.ht/~bitfehler/go-enom/
+
 ## Overview
 
 `go-enomapi` provides a small, well-documented client for interacting with the ENOM reseller API. The goal is to offer a simple, idiomatic Go interface for common ENOM operations (domains, contacts, orders, DNS, and TLD information) with sensible defaults for retries, logging, and error handling.
