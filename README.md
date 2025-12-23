@@ -1,13 +1,13 @@
 
 # go-enomapi
 
-A lightweight Go client for the ENOM API to be used by other Go projects.
+A lightweight Go client for the ENOM reseller API.
 
-Inspiration Taken from https://git.sr.ht/~bitfehler/go-enom/
+Inspiration taken from https://git.sr.ht/~bitfehler/go-enom/
 
 ## Overview
 
-`go-enomapi` provides a small, well-documented client for interacting with the ENOM reseller API. The goal is to offer a simple, idiomatic Go interface for common ENOM operations (domains, contacts, orders, DNS, and TLD information) with sensible defaults for retries, logging, and error handling.
+`go-enomapi` is an early-stage client focused on a small, usable core. Current coverage includes basic domain checks, TLD metadata, and a handful of domain-management helpers. The API surface is still evolving.
 
 ## Installation
 
@@ -19,64 +19,72 @@ go get github.com/hazzakins/go-enomapi
 
 ## Quick Start
 
-Example usage showing the core flow (authentication + basic request):
+Example usage showing authentication + a domain availability check:
 
 ```go
 package main
 
 import (
-	"context"
 	"fmt"
 	"log"
 
 	enom "github.com/hazzakins/go-enomapi"
+	"github.com/hazzakins/go-enomapi/domains"
 )
 
 func main() {
-	ctx := context.Background()
-
-	// Create client with API credentials (example constructor)
-	cfg := enom.Config{
-		Username: "YOUR_ENOM_USERNAME",
-		ApiKey:   "YOUR_API_KEY",
-		Sandbox:  true,
-	}
-
-	client, err := enom.NewClient(cfg)
+	client, err := enom.NewClient(
+		"https://resellertest.enom.com/",
+		"YOUR_RESELLER_ID",
+		"YOUR_API_KEY",
+	)
 	if err != nil {
 		log.Fatalf("failed to create enom client: %v", err)
 	}
 
-	// Example: Check domain availability
-	resp, err := client.Domains().CheckAvailability(ctx, "example.com")
+	domainsClient := &domains.Client{Client: client}
+	resp, err := domainsClient.Check(enom.NewDomain("example.com"))
 	if err != nil {
 		log.Fatalf("request error: %v", err)
 	}
 
-	fmt.Printf("Availability: %+v\n", resp)
+	fmt.Printf("Available: %t\n", resp.IsAvailable)
 }
 ```
 
-Replace the constructor and method names above with the actual API once implemented; these are representative of the intended surface.
-
 ## Configuration & Authentication
 
-- Use API key and username as provided by ENOM.
-- Support for sandbox/test mode will be added (see `projects.md`).
+- Use API key and reseller ID as provided by ENOM.
+- Point `NewClient` at the sandbox or production reseller URL.
 
-## Features (planned)
+Example sandbox base URL:
 
-- Domain search and registration
-- Contact management
-- Order creation and status
-- DNS management
-- TLD metadata and pricing
-- Retry/backoff and rate-limit handling
-- Context-aware requests using `context.Context`
+```
+https://resellertest.enom.com/
+```
+
+## Available APIs (current)
+
+- Domain availability check (`Check`)
+- Domain purchase (`Purchase`) (partial)
+- TLD list/details (`GetTLDList`, `GetTLDDetails`)
+- Name spinner (`NameSpinner`)
+- Domain info (`GetDomainInfo`)
+
+Most endpoints are listed in `docs/` but are not yet implemented.
+
+## CLI (experimental)
+
+An interactive CLI lives at `cmd/enomcli`. It currently supports:
+
+- Checking availability and price details
+- Fetching domain info
+
+It expects `RESELLERID` and `APIKEY` in a `.env` file.
 
 ## Contributing
 
-Please see `projects.md` for the project roadmap and baseline tasks. Contributions are welcome — open issues or pull requests and follow standard Go project practices.
+Please see `PROJECTS.md` for the project roadmap and baseline tasks. Contributions are welcome — open issues or pull requests and follow standard Go project practices.
 
 ## License
 
