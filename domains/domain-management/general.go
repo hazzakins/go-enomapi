@@ -1,0 +1,32 @@
+
+
+// TODO: AdvancedDomainSearch
+// TODO: GetAllDomains
+// TODO: GetDomainCount
+// TODO: GetDomainExp
+// TODO: GetDomainInfo
+// TODO: GetDomainNameID
+// TODO: GetDomains
+// TODO: GetDomainStatus
+// TODO: GetDomainSldTld
+// TODO: GetExpiredDomains
+// TODO: GetExtendInfo
+// TODO: GetHomeDomainList
+// TODO: GetNews
+// TODO: GetPasswordBit
+// TODO: GetProductNews
+// TODO: GetRegistrationStatus
+// TODO: GetRegLock
+// TODO: GetRenew
+// TODO: GetSubAccountPassword
+// TODO: ParseDomain
+// TODO: Portal_GetAwardedDomains
+// TODO: Portal_GetDomainInfo
+// TODO: Portal_GetToken
+// TODO: Portal_UpdateAwardedDomains
+// TODO: RPT_GetReport
+// TODO: SetPassword
+// TODO: SetRegLock
+// TODO: SetRenew
+// TODO: StatusDomain
+// TODO: ValidatePassword
