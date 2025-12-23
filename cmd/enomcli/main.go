@@ -9,6 +9,7 @@ import (
 
 	"github.com/hazzakins/go-enomapi"
 	"github.com/hazzakins/go-enomapi/domains"
+	domainmanagement "github.com/hazzakins/go-enomapi/domains/domain-management"
 	"github.com/joho/godotenv"
 )
 
@@ -26,9 +27,28 @@ func main() {
 		return
 	}
 
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Print("Select Mode;\n")
+	fmt.Print("  1: Buy Domain\n")
+	fmt.Print("  2: Get Domain Info\n")
+	fmt.Print("Enter mode number: ")
+	mode, _ := reader.ReadString('\n')
+	mode = strings.TrimSpace(mode)
+
+	switch mode {
+	case "1":
+		buyDomain(client, reader)
+	case "2":
+		getDomainInfo(client, reader)
+	default:
+		fmt.Println("Invalid mode selected.")
+	}
+
+}
+
+func buyDomain(client *enomapi.Client, reader *bufio.Reader) {
 	domainsClient := &domains.Client{Client: client}
 
-	reader := bufio.NewReader(os.Stdin)
 	fmt.Print("Enter domain name: ")
 	dname, _ := reader.ReadString('\n')
 	dname = strings.TrimSpace(dname)
@@ -82,4 +102,27 @@ func main() {
 	}
 
 	fmt.Printf("Result: %v\n", *tld)
+}
+
+func getDomainInfo(client *enomapi.Client, reader *bufio.Reader) {
+	manaementClient := &domainmanagement.Client{Client: client}
+
+	fmt.Print("Enter domain name: ")
+	dname, _ := reader.ReadString('\n')
+	dname = strings.TrimSpace(dname)
+
+	domain := enomapi.NewDomain(dname)
+	info, err := manaementClient.GetDomainInfo(domain)
+	if err != nil {
+		fmt.Printf("Error getting domain info: %v\n", err)
+		return
+	}
+
+	fmt.Printf("Domain Info for %s:\n", dname)
+	fmt.Printf("  Domain Name ID: %d\n", info.DomainName.DomainNameID)
+	fmt.Printf("  SLD:            %s\n", info.DomainName.SLD)
+	fmt.Printf("  TLD:            %s\n", info.DomainName.TLD)
+	fmt.Printf("  Expiration:     %s\n", info.Status.Expiration)
+	fmt.Printf("  Registrar:      %s\n", info.Status.Registrar)
+	fmt.Printf("  Registration Status: %s\n", info.Status.RegistrationStatus)
 }

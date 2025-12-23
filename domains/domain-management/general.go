@@ -1,10 +1,31 @@
+package domainmanagement
 
+import (
+	"github.com/hazzakins/go-enomapi"
+	"github.com/hazzakins/go-enomapi/internal"
+	"github.com/hazzakins/go-enomapi/response"
+)
+
+type Client struct {
+	*enomapi.Client
+}
 
 // TODO: AdvancedDomainSearch
 // TODO: GetAllDomains
 // TODO: GetDomainCount
 // TODO: GetDomainExp
 // TODO: GetDomainInfo
+func (c Client) GetDomainInfo(domain enomapi.Domain) (*response.GetDomainInfo, error) {
+	resp := internal.GetDomainInfoResponse{}
+
+	cmd := c.NewCommand("GetDomainInfo")
+	cmd.AddParam("sld", domain.Name)
+	cmd.AddParam("tld", domain.Extension)
+
+	err := c.Execute(cmd, &resp)
+	return resp.Decode(), err
+}
+
 // TODO: GetDomainNameID
 // TODO: GetDomains
 // TODO: GetDomainStatus

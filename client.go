@@ -15,7 +15,7 @@ type Client struct {
 	apikey      string
 }
 
-func NewClient(resellerURL, resellerID, apikey string) (*Client, error) {
+func NewClient(resellerURL string, resellerID string, apikey string) (*Client, error) {
 	baseURL, err := url.Parse(resellerURL + "/interface.asp")
 	if err != nil {
 		return nil, fmt.Errorf("failed to parse reseller URL: %w", err)
