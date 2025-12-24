@@ -6,6 +6,7 @@ import (
 	"github.com/hazzakins/go-enomapi/response"
 )
 
+// AddBulkDomainsResponse is the raw API response for a bulk domain add request.
 type AddBulkDomainsResponse struct {
 	XMLName xml.Name `xml:"interface-response"`
 	Response
@@ -15,6 +16,7 @@ type AddBulkDomainsResponse struct {
 	UseCart        string         `xml:"UseCart"`
 }
 
+// AddBulkDomains aggregates bulk domain add items and result metadata.
 type AddBulkDomains struct {
 	Items              []AddBulkDomainsItem `xml:"Item"`
 	ListCount          int                  `xml:"ListCount"`
@@ -23,6 +25,7 @@ type AddBulkDomains struct {
 	CartItems          int                  `xml:"CartItems"`
 }
 
+// AddBulkDomainsItem captures an individual bulk domain add entry.
 type AddBulkDomainsItem struct {
 	WscAccountOverride string `xml:"WscAccountOverride"`
 	ItemName           string `xml:"ItemName"`
@@ -36,6 +39,7 @@ type AddBulkDomainsItem struct {
 	DomainName         string `xml:"DomainName"`
 }
 
+// CancelOrderResponse is the wire format for an order cancellation.
 type CancelOrderResponse struct {
 	XMLName xml.Name `xml:"interface-response"`
 	Response
@@ -43,6 +47,7 @@ type CancelOrderResponse struct {
 	Order CancelOrder `xml:"Order"`
 }
 
+// CancelOrder represents the cancellation details for an order.
 type CancelOrder struct {
 	OrderID       string             `xml:"OrderID"`
 	Success       string             `xml:"Success"`
@@ -51,11 +56,13 @@ type CancelOrder struct {
 	DomainEntries []CancelOrderEntry `xml:"Domains>Domain"`
 }
 
+// CancelOrderEntry describes a cancelled domain and any error message.
 type CancelOrderEntry struct {
 	DomainName  string `xml:"DomainName"`
 	Description string `xml:"Description"`
 }
 
+// GetConfirmationSettingsResponse holds confirmation email preferences.
 type GetConfirmationSettingsResponse struct {
 	XMLName xml.Name `xml:"interface-response"`
 	Response
@@ -63,6 +70,7 @@ type GetConfirmationSettingsResponse struct {
 	ConfirmationSettings ConfirmationSettings `xml:"ConfirmationSettings"`
 }
 
+// ConfirmationSettings describes reseller confirmation email settings.
 type ConfirmationSettings struct {
 	OrderConfirmation            string `xml:"OrderConfirmation"`
 	TransferOrderConfirmation    string `xml:"TransferOrderConfirmation"`
@@ -72,6 +80,7 @@ type ConfirmationSettings struct {
 	EmailTail                    string `xml:"EmailTail"`
 }
 
+// GetExtAttributesResponse wraps the extended attributes metadata.
 type GetExtAttributesResponse struct {
 	XMLName xml.Name `xml:"interface-response"`
 	Response
@@ -79,10 +88,12 @@ type GetExtAttributesResponse struct {
 	Attributes ExtAttributes `xml:"Attributes"`
 }
 
+// ExtAttributes lists the required or optional extended attributes.
 type ExtAttributes struct {
 	Items []ExtAttribute `xml:"Attribute"`
 }
 
+// ExtAttribute defines a single extended attribute and its options.
 type ExtAttribute struct {
 	ID          int                  `xml:"ID"`
 	Name        string               `xml:"Name"`
@@ -94,6 +105,7 @@ type ExtAttribute struct {
 	Options     []ExtAttributeOption `xml:"Options>Option"`
 }
 
+// ExtAttributeOption is a selectable option for an extended attribute.
 type ExtAttributeOption struct {
 	ID          int    `xml:"ID"`
 	Value       string `xml:"Value"`
@@ -101,6 +113,7 @@ type ExtAttributeOption struct {
 	Description string `xml:"Description"`
 }
 
+// GetIDNCodesResponse contains language codes supported for IDN domains.
 type GetIDNCodesResponse struct {
 	XMLName xml.Name `xml:"interface-response"`
 	Response
@@ -108,20 +121,24 @@ type GetIDNCodesResponse struct {
 	TLDs IDNCodesTLDs `xml:"tlds"`
 }
 
+// IDNCodesTLDs groups IDN language support by TLD.
 type IDNCodesTLDs struct {
 	TLDs []IDNCodesTLD `xml:"tld"`
 }
 
+// IDNCodesTLD lists the IDN languages available for a TLD.
 type IDNCodesTLD struct {
 	TLD       string        `xml:"tld,attr"`
 	Languages []IDNLanguage `xml:"language"`
 }
 
+// IDNLanguage represents an IDN language code and name.
 type IDNLanguage struct {
 	Code string `xml:"code,attr"`
 	Name string `xml:"name,attr"`
 }
 
+// GetNameSuggestionsResponse contains suggested alternative domains.
 type GetNameSuggestionsResponse struct {
 	XMLName xml.Name `xml:"interface-response"`
 	Response
@@ -129,6 +146,7 @@ type GetNameSuggestionsResponse struct {
 	Suggestions RawXML `xml:"suggestions"`
 }
 
+// PreconfigureResponse reports on TLD preconfiguration results.
 type PreconfigureResponse struct {
 	XMLName xml.Name `xml:"interface-response"`
 	Response
@@ -137,6 +155,7 @@ type PreconfigureResponse struct {
 	Count            int    `xml:"Count"`
 }
 
+// QueueDomainPurchaseResponse captures a queued domain purchase result.
 type QueueDomainPurchaseResponse struct {
 	XMLName xml.Name `xml:"interface-response"`
 	Response
@@ -144,6 +163,7 @@ type QueueDomainPurchaseResponse struct {
 	Purchase QueueDomainPurchase `xml:"Queue_DomainPurchase"`
 }
 
+// QueueDomainPurchase summarizes a queued purchase transaction.
 type QueueDomainPurchase struct {
 	Success              string `xml:"Success"`
 	OrderID              string `xml:"OrderID"`
@@ -152,6 +172,7 @@ type QueueDomainPurchase struct {
 	TransactionReference string `xml:"TransactionReference"`
 }
 
+// QueueGetDomainsResponse contains queued domain entries and metrics.
 type QueueGetDomainsResponse struct {
 	XMLName xml.Name `xml:"interface-response"`
 	Response
@@ -159,6 +180,7 @@ type QueueGetDomainsResponse struct {
 	Queue QueueGetDomains `xml:"Queue_GetDomains"`
 }
 
+// QueueGetDomains lists domains present in a queue response.
 type QueueGetDomains struct {
 	Metrics   *QueueMetrics `xml:"Metrics"`
 	Domains   []QueueDomain `xml:"Domains>Domain"`
@@ -166,6 +188,7 @@ type QueueGetDomains struct {
 	ItemTotal int           `xml:"ItemTotal"`
 }
 
+// QueueMetrics provides counts for queue and watchlist statistics.
 type QueueMetrics struct {
 	WatchlistTotal         int    `xml:"WatchlistTotal"`
 	WatchlistPreorder      int    `xml:"WatchlistPreorder"`
@@ -179,6 +202,7 @@ type QueueMetrics struct {
 	PreregDisabled         string `xml:"PreregDisabled"`
 }
 
+// QueueDomain represents a queued domain along with pricing and status.
 type QueueDomain struct {
 	OrderID    string `xml:"OrderID"`
 	DomainName string `xml:"DomainName"`
@@ -194,6 +218,7 @@ type QueueDomain struct {
 	StatusName string `xml:"StatusName"`
 }
 
+// QueueGetExtAttributesResponse wraps extended attributes returned in a queue.
 type QueueGetExtAttributesResponse struct {
 	XMLName xml.Name `xml:"interface-response"`
 	Response
@@ -201,16 +226,19 @@ type QueueGetExtAttributesResponse struct {
 	Queues QueueExtAttributes `xml:"Queue_GetExtAttributes"`
 }
 
+// QueueExtAttributes groups queued extended attribute payloads.
 type QueueExtAttributes struct {
 	Queues []QueueExtAttributeEntry `xml:"Queues>Queue"`
 }
 
+// QueueExtAttributeEntry holds extended attribute data for a queued TLD.
 type QueueExtAttributeEntry struct {
 	ID         string `xml:"ID"`
 	TLD        string `xml:"TLD"`
 	Attributes RawXML `xml:"Attributes"`
 }
 
+// QueueGetOrderDetailResponse contains detailed order history for queues.
 type QueueGetOrderDetailResponse struct {
 	XMLName xml.Name `xml:"interface-response"`
 	Response
@@ -218,6 +246,7 @@ type QueueGetOrderDetailResponse struct {
 	Detail QueueOrderDetail `xml:"Queue_GetOrderDetail"`
 }
 
+// QueueOrderDetail lists the returned order details for a queue query.
 type QueueOrderDetail struct {
 	Orders       []QueueOrderDetailEntry `xml:"Orders>Order"`
 	RecordStart  int                     `xml:"RecordStart"`
@@ -226,6 +255,7 @@ type QueueOrderDetail struct {
 	TotalResults int                     `xml:"TotalResults"`
 }
 
+// QueueOrderDetailEntry describes a single order returned in queue details.
 type QueueOrderDetailEntry struct {
 	OrderID         string `xml:"OrderID"`
 	OrderDate       string `xml:"OrderDate"`
@@ -239,6 +269,7 @@ type QueueOrderDetailEntry struct {
 	TotalFee        string `xml:"TotalFee"`
 }
 
+// QueueGetOrdersResponse holds paged queue order summaries.
 type QueueGetOrdersResponse struct {
 	XMLName xml.Name `xml:"interface-response"`
 	Response
@@ -246,12 +277,14 @@ type QueueGetOrdersResponse struct {
 	Orders QueueOrders `xml:"Queue_GetOrders"`
 }
 
+// QueueOrders encapsulates a collection of queue order summaries.
 type QueueOrders struct {
 	Orders    []QueueOrderEntry `xml:"Orders>Order"`
 	ItemCount int               `xml:"ItemCount"`
 	ItemTotal int               `xml:"ItemTotal"`
 }
 
+// QueueOrderEntry summarizes the status for an order in the queue.
 type QueueOrderEntry struct {
 	OrderID    string `xml:"OrderID"`
 	StatusID   string `xml:"StatusID"`
@@ -263,6 +296,7 @@ type QueueOrderEntry struct {
 	OrderDate  string `xml:"OrderDate"`
 }
 
+// TMCheckResponse contains the lookup key for a trademark check.
 type TMCheckResponse struct {
 	XMLName xml.Name `xml:"interface-response"`
 	Response
@@ -270,6 +304,7 @@ type TMCheckResponse struct {
 	LookupKey string `xml:"LookupKey"`
 }
 
+// TMGetNoticeResponse wraps the trademark notice returned for a lookup.
 type TMGetNoticeResponse struct {
 	XMLName xml.Name `xml:"interface-response"`
 	Response
@@ -277,6 +312,7 @@ type TMGetNoticeResponse struct {
 	Notice TMNotice `xml:"TMNotice"`
 }
 
+// TMNotice contains trademark claims and metadata for a domain.
 type TMNotice struct {
 	TcnID        string `xml:"tcnID"`
 	TcnStartDate string `xml:"tcnStartDate"`
@@ -285,6 +321,7 @@ type TMNotice struct {
 	Claims       RawXML `xml:"Claims"`
 }
 
+// TMUpdateCartResponse indicates whether a trademark cart update succeeded.
 type TMUpdateCartResponse struct {
 	XMLName xml.Name `xml:"interface-response"`
 	Response
@@ -292,6 +329,7 @@ type TMUpdateCartResponse struct {
 	Success string `xml:"Success"`
 }
 
+// GetAgreementPageResponse returns the rendered agreement content.
 type GetAgreementPageResponse struct {
 	XMLName xml.Name `xml:"interface-response"`
 	Response
@@ -299,6 +337,7 @@ type GetAgreementPageResponse struct {
 	Content RawXML `xml:"content"`
 }
 
+// QueueGetInfoResponse provides queue metadata and available TLDs.
 type QueueGetInfoResponse struct {
 	XMLName xml.Name `xml:"interface-response"`
 	Response
@@ -306,11 +345,13 @@ type QueueGetInfoResponse struct {
 	Info QueueInfo `xml:"Queue_GetInfo"`
 }
 
+// QueueInfo aggregates queue-level details for preregistration.
 type QueueInfo struct {
 	Queues       []QueueInfoEntry `xml:"Queue"`
 	TotalRecords int              `xml:"TotalRecords"`
 }
 
+// QueueInfoEntry describes a single queue entry and its properties.
 type QueueInfoEntry struct {
 	TLD              string `xml:"TLD"`
 	NativeIDN        string `xml:"NativeIDN"`
@@ -331,6 +372,7 @@ type QueueInfoEntry struct {
 	InEAP            string `xml:"InEAP"`
 }
 
+// DeleteRegistrationResponse captures the result of deleting a domain.
 type DeleteRegistrationResponse struct {
 	XMLName xml.Name `xml:"interface-response"`
 	Response
@@ -341,6 +383,7 @@ type DeleteRegistrationResponse struct {
 	ErrSection   string       `xml:"ErrSection"`
 }
 
+// DeleteDomain indicates whether the domain deletion was processed.
 type DeleteDomain struct {
 	DomainDeleted string `xml:"domaindeleted"`
 }

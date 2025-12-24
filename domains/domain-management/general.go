@@ -9,10 +9,12 @@ import (
 	"github.com/hazzakins/go-enomapi/response"
 )
 
+// Client wraps the base enomapi.Client with domain management helpers.
 type Client struct {
 	*enomapi.Client
 }
 
+// AdvancedDomainSearchRequest contains filters for advanced domain searches.
 type AdvancedDomainSearchRequest struct {
 	TLDList                   string
 	SearchCriteria            string
@@ -46,6 +48,7 @@ type AdvancedDomainSearchRequest struct {
 	MultiLang                 string
 }
 
+// GetAllDomainsRequest scopes the GetAllDomains call.
 type GetAllDomainsRequest struct {
 	UseDNS         string
 	GetDefaultOnly string
@@ -56,6 +59,7 @@ type GetAllDomainsRequest struct {
 	UseEnomNS      string
 }
 
+// GetDomainsRequest defines pagination and filtering for GetDomains.
 type GetDomainsRequest struct {
 	Tab           string
 	DaysToExpired *int
@@ -69,6 +73,7 @@ type GetDomainsRequest struct {
 	ExtFormat     *int
 }
 
+// PortalGetAwardedDomainsRequest configures portal awarded domain retrieval.
 type PortalGetAwardedDomainsRequest struct {
 	RecordCount   *int
 	RecordOption  *int
@@ -77,16 +82,19 @@ type PortalGetAwardedDomainsRequest struct {
 	DomainNameID  string
 }
 
+// PortalGetTokenRequest identifies a portal user requesting a token.
 type PortalGetTokenRequest struct {
 	PortalUserID string
 	Email        string
 }
 
+// PortalUpdateAwardedDomainsRequest lists awarded domains to update.
 type PortalUpdateAwardedDomainsRequest struct {
 	DomainList string
 	DomainIDs  []int64
 }
 
+// RPTGetReportRequest configures a reporting query for activity data.
 type RPTGetReportRequest struct {
 	Version          *int
 	ReportType       int
