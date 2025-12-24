@@ -13,6 +13,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
+// EnvKey represents an environment variable key used by the CLI.
 type EnvKey string
 
 func main() {
