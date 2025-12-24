@@ -1,10 +1,10 @@
 package domains
 
 import (
-	"github.com/hazzakins/go-enomapi"
 	"github.com/hazzakins/go-enomapi/internal"
 	"github.com/hazzakins/go-enomapi/response"
 )
+
 
 // ParameterSet represents a collection of optional parameters to include with a
 // command. Only entries with non-empty values are transmitted.
@@ -17,6 +17,16 @@ func addParameters(cmd *enomapi.Command, params ParameterSet) {
 		}
 		cmd.AddParam(key, value)
 	}
+}
+// Upstream documentation: https://api.enom.com/docs/pe-get-tld-id
+func (c *Client) PEGetTLDID(tld string) (*response.PEGetTLDID, error) {
+	resp := internal.PEGetTLDIDResponse{}
+
+	cmd := c.NewCommand("PE_GetTLDID")
+	cmd.AddParam("TLD", tld)
+
+	err := c.Execute(cmd, &resp)
+	return resp.Decode(), err
 }
 
 // Upstream documentation: https://api.enom.com/docs/pe-set-pricing
