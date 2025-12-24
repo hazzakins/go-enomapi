@@ -25,8 +25,37 @@ type NameSpinner struct {
 type SpinnerResponse struct {
 	Response
 	NameSpinner NameSpinner `xml:"namespin"`
+	OriginalSLD string      `xml:"originalsld"`
+	ResponseMeta
 }
 
 func (s *SpinnerResponse) Decode() *response.NameSpinner {
-	return &response.NameSpinner{}
+	return &response.NameSpinner{
+		SpinCount:    s.NameSpinner.SpinCount,
+		TLDList:      s.NameSpinner.TLDList,
+		OriginalSLD:  s.OriginalSLD,
+		Domains:      decodeSpinnerDomains(s.NameSpinner.Domains),
+		ResponseMeta: decodeResponseMeta(s.Response, s.ResponseMeta),
+	}
+}
+
+func decodeSpinnerDomains(domains []SpinnerDomain) []response.SpinnerDomain {
+	if len(domains) == 0 {
+		return nil
+	}
+	result := make([]response.SpinnerDomain, 0, len(domains))
+	for _, domain := range domains {
+		result = append(result, response.SpinnerDomain{
+			Name:     domain.Name,
+			Com:      domain.Com,
+			ComScore: domain.ComScore,
+			Net:      domain.Net,
+			NetScore: domain.NetScore,
+			Tv:       domain.Tv,
+			TvScore:  domain.TvScore,
+			Cc:       domain.Cc,
+			CcScore:  domain.CcScore,
+		})
+	}
+	return result
 }

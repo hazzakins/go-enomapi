@@ -16,18 +16,30 @@ import (
 type EnvKey string
 
 func main() {
-	err := godotenv.Load()
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Print("Select Env;\n")
+	fmt.Print("  1: PROD\n")
+	fmt.Print("  2: DEV\n")
+	env, _ := reader.ReadString('\n')
+
+	switch env {
+	case "2\n":
+		env = ".env.dev"
+	case "1\n":
+		env = ".env"
+	}
+
+	err := godotenv.Load(env)
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-
-	client, err := enomapi.NewClient("https://resellertest.enom.com/", os.Getenv("RESELLERID"), os.Getenv("APIKEY"))
+	fmt.Printf("Connecting client with Interface %v\n", os.Getenv("INTERFACE"))
+	client, err := enomapi.NewClient(os.Getenv("INTERFACE"), os.Getenv("RESELLERID"), os.Getenv("APIKEY"))
 	if err != nil {
 		fmt.Printf("Error creating client: %v\n", err)
 		return
 	}
 
-	reader := bufio.NewReader(os.Stdin)
 	fmt.Print("Select Mode;\n")
 	fmt.Print("  1: Buy Domain\n")
 	fmt.Print("  2: Get Domain Info\n")
@@ -87,21 +99,57 @@ func buyDomain(client *enomapi.Client, reader *bufio.Reader) {
 	}
 
 	if tld.Registration.DNSRequired {
-		// TODO: Implement DNS server input handling
-		fmt.Println("Domain requires DNS servers to be set at registration, but this feature is not yet implemented.")
-
-		// fmt.Println("Domain requires DNS servers to be set at registration.")
-		// fmt.Print("Enter comma-separated list of DNS servers: ")
-		// dnsInput, _ := reader.ReadString('\n')
-		// dnsInput = strings.TrimSpace(dnsInput)
-		// dnsServers := strings.Split(dnsInput, ",")
-		// for i := range dnsServers {
-		// 	dnsServers[i] = strings.TrimSpace(dnsServers[i])
-		// }
-		// domain.NS = dnsServers
+		fmt.Printf(
+			".%s requires name servers at registration (min %d, max %d); the CLI does not support this yet.\n",
+			domain.Extension,
+			tld.Registration.DNSMinServers,
+			tld.Registration.DNSMaxServers,
+		)
+		return
 	}
 
-	fmt.Printf("Result: %v\n", *tld)
+	extAttrs, err := domainsClient.GetExtAttributes(domain.Extension)
+	if err != nil {
+		fmt.Printf("Error getting extended attributes: %v\n", err)
+		return
+	}
+	if len(extAttrs.Attributes) > 0 {
+		fmt.Printf("Extended attributes are required for .%s. The CLI does not support collecting them yet.\n", domain.Extension)
+		for _, attr := range extAttrs.Attributes {
+			reqLabel := "optional"
+			if attr.Required > 0 {
+				reqLabel = "required"
+			}
+			fmt.Printf("  - %s (%s)\n", attr.Name, reqLabel)
+		}
+		return
+	}
+
+	if p.IsPremium || p.IsPlatinum || p.IsEAP {
+		fmt.Println("Premium, platinum, and EAP domains require additional purchase parameters not supported by the CLI.")
+		return
+	}
+
+	purchase, err := domainsClient.Purchase(domain)
+	if err != nil {
+		fmt.Printf("Error purchasing domain: %v\n", err)
+		return
+	}
+
+	fmt.Printf("Order ID: %s\n", purchase.OrderID)
+	fmt.Printf("Order Status: %s\n", purchase.OrderStatus)
+	fmt.Printf("Order Description: %s\n", purchase.OrderDescription)
+	fmt.Printf("Charged Price: $%.2f\n", purchase.Price)
+	if purchase.OrderCompleted {
+		if !purchase.RegistrationDate.IsZero() {
+			fmt.Printf("Registration Date: %s\n", purchase.RegistrationDate)
+		}
+		if !purchase.ExpirationDate.IsZero() {
+			fmt.Printf("Expiration Date: %s\n", purchase.ExpirationDate)
+		}
+	} else {
+		fmt.Println("Order was queued; check order status later.")
+	}
 }
 
 func getDomainInfo(client *enomapi.Client, reader *bufio.Reader) {
@@ -119,10 +167,10 @@ func getDomainInfo(client *enomapi.Client, reader *bufio.Reader) {
 	}
 
 	fmt.Printf("Domain Info for %s:\n", dname)
-	fmt.Printf("  Domain Name ID: %d\n", info.DomainName.DomainNameID)
-	fmt.Printf("  SLD:            %s\n", info.DomainName.SLD)
-	fmt.Printf("  TLD:            %s\n", info.DomainName.TLD)
-	fmt.Printf("  Expiration:     %s\n", info.Status.Expiration)
-	fmt.Printf("  Registrar:      %s\n", info.Status.Registrar)
+	fmt.Printf("  Domain Name ID:      %d\n", info.DomainName.DomainNameID)
+	fmt.Printf("  SLD:                 %s\n", info.DomainName.SLD)
+	fmt.Printf("  TLD:                 %s\n", info.DomainName.TLD)
+	fmt.Printf("  Expiration:          %s\n", info.Status.Expiration)
+	fmt.Printf("  Registrar:           %s\n", info.Status.Registrar)
 	fmt.Printf("  Registration Status: %s\n", info.Status.RegistrationStatus)
 }

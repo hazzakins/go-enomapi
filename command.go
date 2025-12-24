@@ -21,7 +21,7 @@ func (c *Command) toParams() string {
 }
 
 func (c *Command) setDefaultParams(client *Client) {
-	c.Params = client.resellerURL.Query()
+	c.Params = url.Values{}
 	c.Params.Set("Command", c.Name)
 	c.Params.Set("UID", client.resellerID)
 	c.Params.Set("PW", client.apikey)

@@ -99,6 +99,9 @@ type RPTGetReportRequest struct {
 }
 
 // AdvancedDomainSearch searches for domains in the account.
+// This method takes an `AdvancedDomainSearchRequest` as a parameter
+// and returns a pointer to a `response.AdvancedDomainSearch` object along with an error. The method is
+// responsible for performing an advanced domain search operation.
 func (c Client) AdvancedDomainSearch(req AdvancedDomainSearchRequest) (*response.AdvancedDomainSearch, error) {
 	resp := internal.AdvancedDomainSearchResponse{}
 
@@ -198,6 +201,10 @@ func (c Client) GetAllDomains(req GetAllDomainsRequest) (*response.GetAllDomains
 }
 
 // GetDomainCount returns counts for domain categories in the account.
+// The above code is defining a method `GetDomainCount` for a struct `Client` in Go. This method sends
+// a command "GetDomainCount" using the client's `Execute` method and decodes the response into a
+// `GetDomainCount` struct. It returns the decoded response and any error that occurred during the
+// execution.
 func (c Client) GetDomainCount() (*response.GetDomainCount, error) {
 	resp := internal.GetDomainCountResponse{}
 
@@ -208,7 +215,9 @@ func (c Client) GetDomainCount() (*response.GetDomainCount, error) {
 }
 
 // TODO: GetDomainExp
-// TODO: GetDomainInfo
+
+// This method takes a parameter of type `enomapi.Domain` and returns a pointer to a
+// `response.GetDomainInfo` struct along with an error.
 func (c Client) GetDomainInfo(domain enomapi.Domain) (*response.GetDomainInfo, error) {
 	resp := internal.GetDomainInfoResponse{}
 

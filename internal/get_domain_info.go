@@ -16,20 +16,20 @@ type GetDomainInfoResponse struct {
 	MaxPeriod      int           `xml:"MaxPeriod"`
 	Server         string        `xml:"Server"`
 	Site           string        `xml:"Site"`
-	IsLockable     bool          `xml:"IsLockable"`
-	IsRealTimeTLD  bool          `xml:"IsRealTimeTLD"`
+	IsLockable     Bool          `xml:"IsLockable"`
+	IsRealTimeTLD  Bool          `xml:"IsRealTimeTLD"`
 	TimeDifference string        `xml:"TimeDifference"`
 	ExecTime       string        `xml:"ExecTime"`
-	Done           bool          `xml:"Done"`
+	Done           Bool          `xml:"Done"`
 	TrackingKey    string        `xml:"TrackingKey"`
 	RequestDate    string        `xml:"RequestDateTime"`
 }
 
 type GetDomainInfo struct {
 	DomainName     DomainInfoDomainName `xml:"domainname"`
-	MultyLangSLD   bool                 `xml:"multy-langSLD"`
+	MultyLangSLD   Bool                 `xml:"multy-langSLD"`
 	Status         DomainInfoStatus     `xml:"status"`
-	ParkingEnabled bool                 `xml:"ParkingEnabled"`
+	ParkingEnabled Bool                 `xml:"ParkingEnabled"`
 	Services       []DomainServiceEntry `xml:"services>entry"`
 }
 
@@ -44,15 +44,15 @@ type DomainInfoStatus struct {
 	Expiration            string          `xml:"expiration"`
 	DeleteByDate          string          `xml:"deletebydate"`
 	DeleteType            string          `xml:"deletetype"`
-	Restorable            bool            `xml:"restorable"`
+	Restorable            Bool            `xml:"restorable"`
 	RenewBeforeExpiration string          `xml:"renewbeforeexpiration"`
 	Registrar             string          `xml:"registrar"`
 	RegistrationStatus    string          `xml:"registrationstatus"`
 	PurchaseStatus        string          `xml:"purchase-status"`
 	BelongsTo             DomainBelongsTo `xml:"belongs-to"`
-	EscrowHold            bool            `xml:"escrowhold"`
+	EscrowHold            Bool            `xml:"escrowhold"`
 	EscrowLiftDate        string          `xml:"escrowliftdate"`
-	AuctionHold           bool            `xml:"auctionhold"`
+	AuctionHold           Bool            `xml:"auctionhold"`
 	AuctionLiftDate       string          `xml:"auctionliftdate"`
 }
 
@@ -79,12 +79,12 @@ type DomainServiceEnomDNS struct {
 }
 
 type DomainService struct {
-	Changable bool   `xml:"changable,attr"`
+	Changable Bool   `xml:"changable,attr"`
 	Value     string `xml:",chardata"`
 }
 
 type DomainServiceConfig struct {
-	Changable    bool                `xml:"changable,attr"`
+	Changable    Bool                `xml:"changable,attr"`
 	Type         string              `xml:"type,attr"`
 	DNS          []string            `xml:"dns"`
 	Hosts        []DomainServiceHost `xml:"host"`
@@ -100,7 +100,7 @@ type DomainServiceHost struct {
 	Type       string `xml:"type"`
 	Address    string `xml:"address"`
 	MXPref     string `xml:"mxpref"`
-	IsEditable bool   `xml:"iseditable"`
+	IsEditable Bool   `xml:"iseditable"`
 }
 
 type DomainServiceWPPS struct {
@@ -115,8 +115,8 @@ type DomainServiceWBL struct {
 	StatusID           string               `xml:"statusid"`
 	StatusDescr        string               `xml:"statusdescr"`
 	ExpDate            string               `xml:"expdate"`
-	Enabled            bool                 `xml:"enabled"`
-	Renew              bool                 `xml:"renew"`
+	Enabled            Bool                 `xml:"enabled"`
+	Renew              Bool                 `xml:"renew"`
 	CompanyName        string               `xml:"companyname"`
 	CompanyDescription string               `xml:"companydescription"`
 	DomainName         string               `xml:"domainname"`
@@ -139,16 +139,16 @@ type DomainServiceMobilizer struct{}
 
 type DomainServiceRAASetting struct {
 	VerificationStatus string `xml:"verificationstatus"`
-	DomainSuspended    bool   `xml:"domainsuspended"`
+	DomainSuspended    Bool   `xml:"domainsuspended"`
 	SuspensionDate     string `xml:"suspensiondate"`
-	IsQueuedChange     bool   `xml:"isqueuedchange"`
+	IsQueuedChange     Bool   `xml:"isqueuedchange"`
 	StatusExpDate      string `xml:"statusexpdate"`
 }
 
 type DomainServiceIRTPSetting struct {
-	ICANNCompliant      bool                      `xml:"icanncompliant"`
-	OptOut              bool                      `xml:"optout"`
-	TransferLock        bool                      `xml:"transferlock"`
+	ICANNCompliant      Bool                      `xml:"icanncompliant"`
+	OptOut              Bool                      `xml:"optout"`
+	TransferLock        Bool                      `xml:"transferlock"`
 	TransferLockExpDate DomainTransferLockExpDate `xml:"transferlockexpdate"`
 }
 
@@ -161,7 +161,7 @@ type DomainTransferLockExpDate struct {
 
 type DomainServiceWhoisPublic struct {
 	VASItemID int64 `xml:"vasitemid"`
-	Enabled   bool  `xml:"enabled"`
+	Enabled   Bool  `xml:"enabled"`
 }
 
 func (r *GetDomainInfoResponse) Decode() *response.GetDomainInfo {
@@ -172,9 +172,9 @@ func (r *GetDomainInfoResponse) Decode() *response.GetDomainInfo {
 			DomainNameID: r.GetDomainInfo.DomainName.DomainNameID,
 			Name:         r.GetDomainInfo.DomainName.Name,
 		},
-		MultyLangSLD:   r.GetDomainInfo.MultyLangSLD,
+		MultyLangSLD:   bool(r.GetDomainInfo.MultyLangSLD),
 		Status:         decodeDomainInfoStatus(r.GetDomainInfo.Status),
-		ParkingEnabled: r.GetDomainInfo.ParkingEnabled,
+		ParkingEnabled: bool(r.GetDomainInfo.ParkingEnabled),
 		Command:        r.Command,
 		APIType:        r.APIType,
 		Language:       r.Language,
@@ -184,11 +184,11 @@ func (r *GetDomainInfoResponse) Decode() *response.GetDomainInfo {
 		MaxPeriod:      r.MaxPeriod,
 		Server:         r.Server,
 		Site:           r.Site,
-		IsLockable:     r.IsLockable,
-		IsRealTimeTLD:  r.IsRealTimeTLD,
+		IsLockable:     bool(r.IsLockable),
+		IsRealTimeTLD:  bool(r.IsRealTimeTLD),
 		TimeDifference: r.TimeDifference,
 		ExecTime:       r.ExecTime,
-		Done:           r.Done,
+		Done:           bool(r.Done),
 		TrackingKey:    r.TrackingKey,
 		RequestDate:    r.RequestDate,
 	}
@@ -208,7 +208,7 @@ func decodeDomainInfoStatus(status DomainInfoStatus) response.DomainInfoStatus {
 		Expiration:            status.Expiration,
 		DeleteByDate:          status.DeleteByDate,
 		DeleteType:            status.DeleteType,
-		Restorable:            status.Restorable,
+		Restorable:            bool(status.Restorable),
 		RenewBeforeExpiration: status.RenewBeforeExpiration,
 		Registrar:             status.Registrar,
 		RegistrationStatus:    status.RegistrationStatus,
@@ -217,9 +217,9 @@ func decodeDomainInfoStatus(status DomainInfoStatus) response.DomainInfoStatus {
 			PartyID: status.BelongsTo.PartyID,
 			Value:   status.BelongsTo.Value,
 		},
-		EscrowHold:      status.EscrowHold,
+		EscrowHold:      bool(status.EscrowHold),
 		EscrowLiftDate:  status.EscrowLiftDate,
-		AuctionHold:     status.AuctionHold,
+		AuctionHold:     bool(status.AuctionHold),
 		AuctionLiftDate: status.AuctionLiftDate,
 	}
 }
@@ -238,7 +238,7 @@ func decodeDomainServiceEntry(entry DomainServiceEntry) response.DomainServiceEn
 
 	if entry.Service != nil {
 		result.Service = &response.DomainService{
-			Changable: entry.Service.Changable,
+			Changable: bool(entry.Service.Changable),
 			Value:     entry.Service.Value,
 		}
 	}
@@ -258,18 +258,18 @@ func decodeDomainServiceEntry(entry DomainServiceEntry) response.DomainServiceEn
 	if entry.RAASetting != nil {
 		result.RAASetting = &response.DomainServiceRAASetting{
 			VerificationStatus: entry.RAASetting.VerificationStatus,
-			DomainSuspended:    entry.RAASetting.DomainSuspended,
+			DomainSuspended:    bool(entry.RAASetting.DomainSuspended),
 			SuspensionDate:     entry.RAASetting.SuspensionDate,
-			IsQueuedChange:     entry.RAASetting.IsQueuedChange,
+			IsQueuedChange:     bool(entry.RAASetting.IsQueuedChange),
 			StatusExpDate:      entry.RAASetting.StatusExpDate,
 		}
 	}
 
 	if entry.IRTPSetting != nil {
 		result.IRTPSetting = &response.DomainServiceIRTPSetting{
-			ICANNCompliant: entry.IRTPSetting.ICANNCompliant,
-			OptOut:         entry.IRTPSetting.OptOut,
-			TransferLock:   entry.IRTPSetting.TransferLock,
+			ICANNCompliant: bool(entry.IRTPSetting.ICANNCompliant),
+			OptOut:         bool(entry.IRTPSetting.OptOut),
+			TransferLock:   bool(entry.IRTPSetting.TransferLock),
 			TransferLockExpDate: response.DomainTransferLockExpDate{
 				DaysRemaining: entry.IRTPSetting.TransferLockExpDate.DaysRemaining,
 				UTC:           entry.IRTPSetting.TransferLockExpDate.UTC,
@@ -282,7 +282,7 @@ func decodeDomainServiceEntry(entry DomainServiceEntry) response.DomainServiceEn
 	if entry.WhoisPublicity != nil {
 		result.WhoisPublicity = &response.DomainServiceWhoisPublic{
 			VASItemID: entry.WhoisPublicity.VASItemID,
-			Enabled:   entry.WhoisPublicity.Enabled,
+			Enabled:   bool(entry.WhoisPublicity.Enabled),
 		}
 	}
 
@@ -291,7 +291,7 @@ func decodeDomainServiceEntry(entry DomainServiceEntry) response.DomainServiceEn
 
 func decodeDomainServiceConfig(config *DomainServiceConfig) *response.DomainServiceConfig {
 	result := &response.DomainServiceConfig{
-		Changable:    config.Changable,
+		Changable:    bool(config.Changable),
 		Type:         config.Type,
 		DNS:          append([]string(nil), config.DNS...),
 		WSB:          config.WSB,
@@ -308,7 +308,7 @@ func decodeDomainServiceConfig(config *DomainServiceConfig) *response.DomainServ
 				Type:       host.Type,
 				Address:    host.Address,
 				MXPref:     host.MXPref,
-				IsEditable: host.IsEditable,
+				IsEditable: bool(host.IsEditable),
 			})
 		}
 	}
@@ -331,8 +331,8 @@ func decodeDomainServiceWBL(wbl *DomainServiceWBL) *response.DomainServiceWBL {
 		StatusID:           wbl.StatusID,
 		StatusDescr:        wbl.StatusDescr,
 		ExpDate:            wbl.ExpDate,
-		Enabled:            wbl.Enabled,
-		Renew:              wbl.Renew,
+		Enabled:            bool(wbl.Enabled),
+		Renew:              bool(wbl.Renew),
 		CompanyName:        wbl.CompanyName,
 		CompanyDescription: wbl.CompanyDescription,
 		DomainName:         wbl.DomainName,
