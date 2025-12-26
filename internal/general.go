@@ -152,6 +152,13 @@ type GetDomainCountResponse struct {
 	TrafficMsg          *DomainTraffic `xml:"trafficmsg"`
 }
 
+type GetDomainExpResponse struct {
+	XMLName xml.Name `xml:"interface-response"`
+	Response
+	ResponseMeta
+	ExpirationDate string `xml:"ExpirationDate"`
+}
+
 type DomainTraffic struct {
 	VistaCustomer  bool   `xml:"VistaCustomer"`
 	RedirectorData bool   `xml:"RedirectorData"`
@@ -253,6 +260,74 @@ type ExpiredDomainDetail struct {
 	LockStatus     string `xml:"lockstatus"`
 }
 
+type GetExtendInfoResponse struct {
+	XMLName xml.Name `xml:"interface-response"`
+	Response
+	ResponseMeta
+	RegistrarHold       bool                          `xml:"RegistrarHold"`
+	Expiration          string                        `xml:"Expiration"`
+	MaxExtension        int                           `xml:"MaxExtension"`
+	MinAllowed          int                           `xml:"MinAllowed"`
+	CCAuthorized        bool                          `xml:"CCAuthorized"`
+	Price               string                        `xml:"Price"`
+	Balance             string                        `xml:"Balance"`
+	AvailableBalance    string                        `xml:"AvailableBalance"`
+	CustomerPrefs       ExtendInfoCustomerPrefs       `xml:"CustomerPrefs"`
+	CustomerInformation ExtendInfoCustomerInformation `xml:"CustomerInformation"`
+}
+
+type ExtendInfoCustomerPrefs struct {
+	DefPeriod            int                          `xml:"DefPeriod"`
+	AllowDNS             bool                         `xml:"AllowDNS"`
+	ShowPopups           bool                         `xml:"ShowPopups"`
+	AutoRenew            bool                         `xml:"AutoRenew"`
+	RegLock              bool                         `xml:"RegLock"`
+	AutoPakRenew         bool                         `xml:"AutoPakRenew"`
+	UseDNS               bool                         `xml:"UseDNS"`
+	ResellerStatus       string                       `xml:"ResellerStatus"`
+	RenewalSetting       int                          `xml:"RenewalSetting"`
+	RenewalBCC           int                          `xml:"RenewalBCC"`
+	RenewalURLForward    bool                         `xml:"RenewalURLForward"`
+	RenewalEmailForward  bool                         `xml:"RenewalEmailForward"`
+	MailNumLimit         int                          `xml:"MailNumLimit"`
+	IDProtect            bool                         `xml:"IDProtect"`
+	DefIDProtectRenew    bool                         `xml:"DefIDProtectRenew"`
+	DefWBLRenew          bool                         `xml:"DefWBLRenew"`
+	NameJetSales         bool                         `xml:"NameJetSales"`
+	DefaultHostRecords   ExtendInfoDefaultHostRecords `xml:"defaulthostrecords"`
+	DefaultHostRecordOwn bool                         `xml:"defaulthostrecordown"`
+	UseOurDNS            bool                         `xml:"UseOurDNS"`
+	NameServers          ExtendInfoNameServers        `xml:"NameServers"`
+}
+
+type ExtendInfoDefaultHostRecords struct {
+	HostRecords []ExtendInfoHostRecord `xml:"hostrecord"`
+}
+
+type ExtendInfoHostRecord struct {
+	HostName   string `xml:"hostname,attr"`
+	Address    string `xml:"address,attr"`
+	RecordType string `xml:"recordtype,attr"`
+}
+
+type ExtendInfoNameServers struct {
+	DNS1 string `xml:"DNS1"`
+	DNS2 string `xml:"DNS2"`
+	DNS3 string `xml:"DNS3"`
+	DNS4 string `xml:"DNS4"`
+	DNS5 string `xml:"DNS5"`
+}
+
+type ExtendInfoCustomerInformation struct {
+	AcceptTerms   bool   `xml:"AcceptTerms"`
+	URL           string `xml:"URL"`
+	ParentAccount string `xml:"ParentAccount"`
+	ParentLogin   string `xml:"ParentLogin"`
+	NoService     bool   `xml:"NoService"`
+	BulkRegLimit  int    `xml:"BulkRegLimit"`
+	Account       string `xml:"Account"`
+}
+
 type GetNewsResponse struct {
 	XMLName xml.Name `xml:"interface-response"`
 	Response
@@ -299,6 +374,22 @@ type GetRegLockResponse struct {
 	ResponseMeta
 	RegLock   string `xml:"reg-lock"`
 	Registrar string `xml:"registrar"`
+}
+
+type GetRenewResponse struct {
+	XMLName xml.Name `xml:"interface-response"`
+	Response
+	ResponseMeta
+	RenewName         bool `xml:"auto-renew"`
+	PakExist          bool `xml:"PakExist"`
+	AutoPakRenew      bool `xml:"AutoPakRenew"`
+	EmailFwdExists    bool `xml:"EmailFwdExists"`
+	EmailForwardRenew bool `xml:"EmailForwardRenew"`
+	URLFwdExists      bool `xml:"URLFwdExists"`
+	URLForwardRenew   bool `xml:"URLForwardRenew"`
+	IDProtectRenew    bool `xml:"IDProtectRenew"`
+	IDProtectExists   bool `xml:"IDProtectExists"`
+	MobilizerRenew    bool `xml:"MobilizerRenew"`
 }
 
 type GetSubAccountPasswordResponse struct {
@@ -455,6 +546,17 @@ type SetRegLockResponse struct {
 	RRPText   string `xml:"RRPText"`
 }
 
+type SetRenewResponse struct {
+	XMLName xml.Name `xml:"interface-response"`
+	Response
+	ResponseMeta
+	RenewName         bool `xml:"RenewName"`
+	AutoPakRenew      bool `xml:"AutoPakRenew"`
+	EmailForwardRenew bool `xml:"EmailForwardRenew"`
+	URLForwardRenew   bool `xml:"URLForwardRenew"`
+	WPPSRenew         bool `xml:"WPPSRenew"`
+}
+
 type StatusDomainResponse struct {
 	XMLName xml.Name `xml:"interface-response"`
 	Response
@@ -541,6 +643,13 @@ func (r *GetDomainCountResponse) Decode() *response.GetDomainCount {
 	return &result
 }
 
+func (r *GetDomainExpResponse) Decode() *response.GetDomainExp {
+	return &response.GetDomainExp{
+		ExpirationDate: r.ExpirationDate,
+		ResponseMeta:   decodeResponseMeta(r.Response, r.ResponseMeta),
+	}
+}
+
 func (r *GetDomainNameIDResponse) Decode() *response.GetDomainNameID {
 	return &response.GetDomainNameID{
 		DomainRRP:    r.DomainRRP,
@@ -600,6 +709,22 @@ func (r *GetExpiredDomainsResponse) Decode() *response.GetExpiredDomains {
 	}
 }
 
+func (r *GetExtendInfoResponse) Decode() *response.GetExtendInfo {
+	return &response.GetExtendInfo{
+		RegistrarHold:       r.RegistrarHold,
+		Expiration:          r.Expiration,
+		MaxExtension:        r.MaxExtension,
+		MinAllowed:          r.MinAllowed,
+		CCAuthorized:        r.CCAuthorized,
+		Price:               r.Price,
+		Balance:             r.Balance,
+		AvailableBalance:    r.AvailableBalance,
+		CustomerPrefs:       decodeExtendInfoCustomerPrefs(r.CustomerPrefs),
+		CustomerInformation: decodeExtendInfoCustomerInformation(r.CustomerInformation),
+		ResponseMeta:        decodeResponseMeta(r.Response, r.ResponseMeta),
+	}
+}
+
 func (r *GetNewsResponse) Decode() *response.GetNews {
 	return &response.GetNews{
 		Alerts:       decodeAlerts(r.Alerts),
@@ -635,6 +760,22 @@ func (r *GetRegLockResponse) Decode() *response.GetRegLock {
 		RegLock:      r.RegLock,
 		Registrar:    r.Registrar,
 		ResponseMeta: decodeResponseMeta(r.Response, r.ResponseMeta),
+	}
+}
+
+func (r *GetRenewResponse) Decode() *response.GetRenew {
+	return &response.GetRenew{
+		RenewName:         r.RenewName,
+		PakExist:          r.PakExist,
+		AutoPakRenew:      r.AutoPakRenew,
+		EmailFwdExists:    r.EmailFwdExists,
+		EmailForwardRenew: r.EmailForwardRenew,
+		URLFwdExists:      r.URLFwdExists,
+		URLForwardRenew:   r.URLForwardRenew,
+		IDProtectRenew:    r.IDProtectRenew,
+		IDProtectExists:   r.IDProtectExists,
+		MobilizerRenew:    r.MobilizerRenew,
+		ResponseMeta:      decodeResponseMeta(r.Response, r.ResponseMeta),
 	}
 }
 
@@ -744,6 +885,17 @@ func (r *SetRegLockResponse) Decode() *response.SetRegLock {
 		RRPCodeSR:    r.RRPCodeSR,
 		RRPText:      r.RRPText,
 		ResponseMeta: decodeResponseMeta(r.Response, r.ResponseMeta),
+	}
+}
+
+func (r *SetRenewResponse) Decode() *response.SetRenew {
+	return &response.SetRenew{
+		RenewName:         r.RenewName,
+		AutoPakRenew:      r.AutoPakRenew,
+		EmailForwardRenew: r.EmailForwardRenew,
+		URLForwardRenew:   r.URLForwardRenew,
+		WPPSRenew:         r.WPPSRenew,
+		ResponseMeta:      decodeResponseMeta(r.Response, r.ResponseMeta),
 	}
 }
 
@@ -899,6 +1051,71 @@ func decodeExpiredDomainDetails(domains []ExpiredDomainDetail) []response.Expire
 		})
 	}
 	return result
+}
+
+func decodeExtendInfoCustomerPrefs(prefs ExtendInfoCustomerPrefs) response.ExtendInfoCustomerPrefs {
+	return response.ExtendInfoCustomerPrefs{
+		DefPeriod:            prefs.DefPeriod,
+		AllowDNS:             prefs.AllowDNS,
+		ShowPopups:           prefs.ShowPopups,
+		AutoRenew:            prefs.AutoRenew,
+		RegLock:              prefs.RegLock,
+		AutoPakRenew:         prefs.AutoPakRenew,
+		UseDNS:               prefs.UseDNS,
+		ResellerStatus:       prefs.ResellerStatus,
+		RenewalSetting:       prefs.RenewalSetting,
+		RenewalBCC:           prefs.RenewalBCC,
+		RenewalURLForward:    prefs.RenewalURLForward,
+		RenewalEmailForward:  prefs.RenewalEmailForward,
+		MailNumLimit:         prefs.MailNumLimit,
+		IDProtect:            prefs.IDProtect,
+		DefIDProtectRenew:    prefs.DefIDProtectRenew,
+		DefWBLRenew:          prefs.DefWBLRenew,
+		NameJetSales:         prefs.NameJetSales,
+		DefaultHostRecords:   decodeExtendInfoDefaultHostRecords(prefs.DefaultHostRecords),
+		DefaultHostRecordOwn: prefs.DefaultHostRecordOwn,
+		UseOurDNS:            prefs.UseOurDNS,
+		NameServers:          decodeExtendInfoNameServers(prefs.NameServers),
+	}
+}
+
+func decodeExtendInfoDefaultHostRecords(records ExtendInfoDefaultHostRecords) response.ExtendInfoDefaultHostRecords {
+	if len(records.HostRecords) == 0 {
+		return response.ExtendInfoDefaultHostRecords{}
+	}
+	result := response.ExtendInfoDefaultHostRecords{
+		HostRecords: make([]response.ExtendInfoHostRecord, 0, len(records.HostRecords)),
+	}
+	for _, record := range records.HostRecords {
+		result.HostRecords = append(result.HostRecords, response.ExtendInfoHostRecord{
+			HostName:   record.HostName,
+			Address:    record.Address,
+			RecordType: record.RecordType,
+		})
+	}
+	return result
+}
+
+func decodeExtendInfoNameServers(servers ExtendInfoNameServers) response.ExtendInfoNameServers {
+	return response.ExtendInfoNameServers{
+		DNS1: servers.DNS1,
+		DNS2: servers.DNS2,
+		DNS3: servers.DNS3,
+		DNS4: servers.DNS4,
+		DNS5: servers.DNS5,
+	}
+}
+
+func decodeExtendInfoCustomerInformation(info ExtendInfoCustomerInformation) response.ExtendInfoCustomerInformation {
+	return response.ExtendInfoCustomerInformation{
+		AcceptTerms:   info.AcceptTerms,
+		URL:           info.URL,
+		ParentAccount: info.ParentAccount,
+		ParentLogin:   info.ParentLogin,
+		NoService:     info.NoService,
+		BulkRegLimit:  info.BulkRegLimit,
+		Account:       info.Account,
+	}
 }
 
 func decodeAlerts(alerts Alerts) response.Alerts {

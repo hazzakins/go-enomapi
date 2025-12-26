@@ -106,6 +106,16 @@ type RPTGetReportRequest struct {
 	ReportOutputType string
 }
 
+// SetRenewRequest configures auto-renew settings for a domain.
+type SetRenewRequest struct {
+	Domain            enomapi.Domain
+	RenewFlag         bool
+	AutoPakRenew      *bool
+	EmailForwardRenew *bool
+	URLForwardRenew   *bool
+	WPPSRenew         *bool
+}
+
 // AdvancedDomainSearch searches for domains in the account.
 // This method takes an `AdvancedDomainSearchRequest` as a parameter
 // and returns a pointer to a `response.AdvancedDomainSearch` object along with an error. The method is
@@ -222,7 +232,17 @@ func (c Client) GetDomainCount() (*response.GetDomainCount, error) {
 	return resp.Decode(), err
 }
 
-// TODO: GetDomainExp
+// GetDomainExp returns the expiration date for a domain.
+func (c Client) GetDomainExp(domain enomapi.Domain) (*response.GetDomainExp, error) {
+	resp := internal.GetDomainExpResponse{}
+
+	cmd := c.NewCommand("GetDomainExp")
+	cmd.AddParam("sld", domain.Name)
+	cmd.AddParam("tld", domain.Extension)
+
+	err := c.Execute(cmd, &resp)
+	return resp.Decode(), err
+}
 
 // This method takes a parameter of type `enomapi.Domain` and returns a pointer to a
 // `response.GetDomainInfo` struct along with an error.
@@ -320,8 +340,33 @@ func (c Client) GetExpiredDomains() (*response.GetExpiredDomains, error) {
 	return resp.Decode(), err
 }
 
-// TODO: GetExtendInfo
-// TODO: GetHomeDomainList
+// GetExtendInfo returns renewal information for a domain.
+func (c Client) GetExtendInfo(domain enomapi.Domain) (*response.GetExtendInfo, error) {
+	resp := internal.GetExtendInfoResponse{}
+
+	cmd := c.NewCommand("GetExtendInfo")
+	cmd.AddParam("sld", domain.Name)
+	cmd.AddParam("tld", domain.Extension)
+
+	err := c.Execute(cmd, &resp)
+	return resp.Decode(), err
+}
+
+// GetHomeDomainList lists domains that use eNom name servers.
+func (c Client) GetHomeDomainList(req GetHomeDomainListRequest) (*response.GetHomeDomainList, error) {
+	resp := internal.GetHomeDomainListResponse{}
+
+	cmd := c.NewCommand("GetHomeDomainList")
+	addIntParam(cmd, "StartPosition", req.StartPosition)
+	addIntParam(cmd, "Display", req.Display)
+	if req.OrderBy != "" {
+		cmd.AddParam("OrderBy", req.OrderBy)
+	}
+
+	err := c.Execute(cmd, &resp)
+	return resp.Decode(), err
+}
+
 // GetNews returns registry maintenance alerts.
 func (c Client) GetNews() (*response.GetNews, error) {
 	resp := internal.GetNewsResponse{}
@@ -378,7 +423,18 @@ func (c Client) GetRegLock(domain enomapi.Domain) (*response.GetRegLock, error) 
 	return resp.Decode(), err
 }
 
-// TODO: GetRenew
+// GetRenew returns auto-renew settings for a domain.
+func (c Client) GetRenew(domain enomapi.Domain) (*response.GetRenew, error) {
+	resp := internal.GetRenewResponse{}
+
+	cmd := c.NewCommand("GetRenew")
+	cmd.AddParam("sld", domain.Name)
+	cmd.AddParam("tld", domain.Extension)
+
+	err := c.Execute(cmd, &resp)
+	return resp.Decode(), err
+}
+
 // GetSubAccountPassword emails the domain password to the registrant.
 func (c Client) GetSubAccountPassword(domain enomapi.Domain) (*response.GetSubAccountPassword, error) {
 	resp := internal.GetSubAccountPasswordResponse{}
@@ -516,7 +572,23 @@ func (c Client) SetRegLock(domain enomapi.Domain, unlockRegistrar bool) (*respon
 	return resp.Decode(), err
 }
 
-// TODO: SetRenew
+// SetRenew updates the auto-renew flag and related settings for a domain.
+func (c Client) SetRenew(req SetRenewRequest) (*response.SetRenew, error) {
+	resp := internal.SetRenewResponse{}
+
+	cmd := c.NewCommand("SetRenew")
+	cmd.AddParam("sld", req.Domain.Name)
+	cmd.AddParam("tld", req.Domain.Extension)
+	cmd.AddParam("RenewFlag", boolToInt(req.RenewFlag))
+	addBoolIntParam(cmd, "AutoPakRenew", req.AutoPakRenew)
+	addBoolIntParam(cmd, "EmailForwardRenew", req.EmailForwardRenew)
+	addBoolIntParam(cmd, "URLForwardRenew", req.URLForwardRenew)
+	addBoolIntParam(cmd, "WPPSRenew", req.WPPSRenew)
+
+	err := c.Execute(cmd, &resp)
+	return resp.Decode(), err
+}
+
 // StatusDomain returns basic status for a domain.
 func (c Client) StatusDomain(domain enomapi.Domain, orderType string) (*response.StatusDomain, error) {
 	resp := internal.StatusDomainResponse{}

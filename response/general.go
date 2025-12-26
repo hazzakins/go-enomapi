@@ -133,6 +133,11 @@ type GetDomainCount struct {
 	ResponseMeta        ResponseMeta
 }
 
+type GetDomainExp struct {
+	ExpirationDate string
+	ResponseMeta   ResponseMeta
+}
+
 type DomainTraffic struct {
 	VistaCustomer  bool
 	RedirectorData bool
@@ -212,6 +217,72 @@ type ExpiredDomainDetail struct {
 	LockStatus     string
 }
 
+type GetExtendInfo struct {
+	RegistrarHold       bool
+	Expiration          string
+	MaxExtension        int
+	MinAllowed          int
+	CCAuthorized        bool
+	Price               string
+	Balance             string
+	AvailableBalance    string
+	CustomerPrefs       ExtendInfoCustomerPrefs
+	CustomerInformation ExtendInfoCustomerInformation
+	ResponseMeta        ResponseMeta
+}
+
+type ExtendInfoCustomerPrefs struct {
+	DefPeriod            int
+	AllowDNS             bool
+	ShowPopups           bool
+	AutoRenew            bool
+	RegLock              bool
+	AutoPakRenew         bool
+	UseDNS               bool
+	ResellerStatus       string
+	RenewalSetting       int
+	RenewalBCC           int
+	RenewalURLForward    bool
+	RenewalEmailForward  bool
+	MailNumLimit         int
+	IDProtect            bool
+	DefIDProtectRenew    bool
+	DefWBLRenew          bool
+	NameJetSales         bool
+	DefaultHostRecords   ExtendInfoDefaultHostRecords
+	DefaultHostRecordOwn bool
+	UseOurDNS            bool
+	NameServers          ExtendInfoNameServers
+}
+
+type ExtendInfoDefaultHostRecords struct {
+	HostRecords []ExtendInfoHostRecord
+}
+
+type ExtendInfoHostRecord struct {
+	HostName   string
+	Address    string
+	RecordType string
+}
+
+type ExtendInfoNameServers struct {
+	DNS1 string
+	DNS2 string
+	DNS3 string
+	DNS4 string
+	DNS5 string
+}
+
+type ExtendInfoCustomerInformation struct {
+	AcceptTerms   bool
+	URL           string
+	ParentAccount string
+	ParentLogin   string
+	NoService     bool
+	BulkRegLimit  int
+	Account       string
+}
+
 type GetNews struct {
 	Alerts       Alerts
 	ResponseMeta ResponseMeta
@@ -248,6 +319,20 @@ type GetRegLock struct {
 	RegLock      string
 	Registrar    string
 	ResponseMeta ResponseMeta
+}
+
+type GetRenew struct {
+	RenewName         bool
+	PakExist          bool
+	AutoPakRenew      bool
+	EmailFwdExists    bool
+	EmailForwardRenew bool
+	URLFwdExists      bool
+	URLForwardRenew   bool
+	IDProtectRenew    bool
+	IDProtectExists   bool
+	MobilizerRenew    bool
+	ResponseMeta      ResponseMeta
 }
 
 type GetSubAccountPassword struct {
@@ -368,6 +453,15 @@ type SetRegLock struct {
 	RRPCodeSR    string
 	RRPText      string
 	ResponseMeta ResponseMeta
+}
+
+type SetRenew struct {
+	RenewName         bool
+	AutoPakRenew      bool
+	EmailForwardRenew bool
+	URLForwardRenew   bool
+	WPPSRenew         bool
+	ResponseMeta      ResponseMeta
 }
 
 type StatusDomain struct {
