@@ -62,6 +62,13 @@ type PreconfigureRequest struct {
 	AccessPassword2    string
 }
 
+type PurchaseRequest struct {
+	Domain             enomapi.Domain
+	UseDNS             string
+	NameServers        []string
+	ExtendedAttributes map[string]string
+}
+
 type QueueDomainPurchaseRequest struct {
 	ItemList        string
 	UseCreditCard   *bool
@@ -324,6 +331,9 @@ func (c *Client) Preconfigure(req PreconfigureRequest) (*response.Preconfigure, 
 			cmd.AddParam("NS"+strconv.Itoa(i+1), ns)
 		}
 	}
+	for key, value := range req.ExtendedAttributes {
+		cmd.AddParam(key, value)
+	}
 	addIntParam(cmd, "UseHostRecords", req.UseHostRecords)
 	if len(req.HostNames) > 0 {
 		cmd.AddParam("HostName", strings.Join(req.HostNames, ","))
@@ -368,6 +378,37 @@ func (c Client) Purchase(domain enomapi.Domain) (*response.DomainPurchase, error
 	cmd := c.NewCommand("Purchase")
 	cmd.AddParam("SLD", domain.Name)
 	cmd.AddParam("TLD", domain.Extension)
+
+	err = c.Execute(cmd, &resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp.Decode()
+}
+
+// PurchaseWithOptions purchases a domain with optional name server settings.
+func (c Client) PurchaseWithOptions(req PurchaseRequest) (*response.DomainPurchase, error) {
+	resp := internal.DomainPurchase{}
+
+	tldID, err := c.PEGetTLDID(req.Domain.Extension)
+	if err != nil {
+		return nil, fmt.Errorf("pe_gettldid: %w", err)
+	}
+	if tldID.TLDID == "" {
+		return nil, fmt.Errorf("pe_gettldid: empty TLDID")
+	}
+
+	cmd := c.NewCommand("Purchase")
+	cmd.AddParam("SLD", req.Domain.Name)
+	cmd.AddParam("TLD", req.Domain.Extension)
+	if req.UseDNS != "" {
+		cmd.AddParam("UseDNS", req.UseDNS)
+	}
+	if len(req.NameServers) > 0 {
+		for i, ns := range req.NameServers {
+			cmd.AddParam("NS"+strconv.Itoa(i+1), ns)
+		}
+	}
 
 	err = c.Execute(cmd, &resp)
 	if err != nil {
