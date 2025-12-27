@@ -55,6 +55,7 @@ func main() {
 	fmt.Print("  2: Get Domain Info\n")
 	fmt.Print("  3: DNSSEC Operations\n")
 	fmt.Print("  4: Get TLD Pricing\n")
+	fmt.Print("  5: List All Domains\n")
 	fmt.Print("Enter mode number: ")
 	mode, _ := reader.ReadString('\n')
 	mode = strings.TrimSpace(mode)
@@ -68,6 +69,8 @@ func main() {
 		dnssecOperations(client, reader)
 	case "4":
 		getTLDPricing(client, reader)
+	case "5":
+		listAllDomains(client)
 	default:
 		fmt.Println("Invalid mode selected.")
 	}
@@ -300,6 +303,26 @@ func getTLDPricing(client *enomapi.Client, reader *bufio.Reader) {
 		if product.RGPEnabled || product.RGPPrice != 0 || product.ResellerPriceRGP != 0 {
 			fmt.Printf("    RGP:      $%.2f (reseller $%.2f) %s\n", product.RGPPrice, product.ResellerPriceRGP, formatEnabled(product.RGPEnabled))
 		}
+	}
+}
+
+func listAllDomains(client *enomapi.Client) {
+	managementClient := &domainmanagement.Client{Client: client}
+
+	resp, err := managementClient.GetAllDomains(domainmanagement.GetAllDomainsRequest{})
+	if err != nil {
+		fmt.Printf("Error fetching domains: %v\n", err)
+		return
+	}
+
+	if len(resp.Domains) == 0 {
+		fmt.Println("No domains found.")
+		return
+	}
+
+	fmt.Printf("Domains (%d):\n", resp.DomainCount)
+	for _, domain := range resp.Domains {
+		fmt.Printf("- %s\n", domain.DomainName)
 	}
 }
 
