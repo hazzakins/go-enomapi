@@ -1,6 +1,8 @@
 package internal
 
 import (
+	"encoding/xml"
+
 	"github.com/hazzakins/go-enomapi/response"
 )
 
@@ -29,6 +31,14 @@ type SpinnerResponse struct {
 	ResponseMeta
 }
 
+// GetNameSuggestionsResponse contains suggested alternative domains.
+type GetNameSuggestionsResponse struct {
+	XMLName xml.Name `xml:"interface-response"`
+	Response
+	ResponseMeta
+	Suggestions RawXML `xml:"suggestions"`
+}
+
 func (s *SpinnerResponse) Decode() *response.NameSpinner {
 	return &response.NameSpinner{
 		SpinCount:    s.NameSpinner.SpinCount,
@@ -36,6 +46,13 @@ func (s *SpinnerResponse) Decode() *response.NameSpinner {
 		OriginalSLD:  s.OriginalSLD,
 		Domains:      decodeSpinnerDomains(s.NameSpinner.Domains),
 		ResponseMeta: decodeResponseMeta(s.Response, s.ResponseMeta),
+	}
+}
+
+func (r *GetNameSuggestionsResponse) Decode() *response.GetNameSuggestions {
+	return &response.GetNameSuggestions{
+		SuggestionsXML: r.Suggestions.Raw,
+		ResponseMeta:   decodeResponseMeta(r.Response, r.ResponseMeta),
 	}
 }
 

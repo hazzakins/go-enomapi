@@ -2,6 +2,7 @@ package internal
 
 import (
 	"encoding/xml"
+	"fmt"
 
 	"github.com/hazzakins/go-enomapi/response"
 )
@@ -80,72 +81,6 @@ type ConfirmationSettings struct {
 	EmailTail                    string `xml:"EmailTail"`
 }
 
-// GetExtAttributesResponse wraps the extended attributes metadata.
-type GetExtAttributesResponse struct {
-	XMLName xml.Name `xml:"interface-response"`
-	Response
-	ResponseMeta
-	Attributes ExtAttributes `xml:"Attributes"`
-}
-
-// ExtAttributes lists the required or optional extended attributes.
-type ExtAttributes struct {
-	Items []ExtAttribute `xml:"Attribute"`
-}
-
-// ExtAttribute defines a single extended attribute and its options.
-type ExtAttribute struct {
-	ID          int                  `xml:"ID"`
-	Name        string               `xml:"Name"`
-	Application int                  `xml:"Application"`
-	UserDefined bool                 `xml:"UserDefined"`
-	Required    int                  `xml:"Required"`
-	Description string               `xml:"Description"`
-	IsChild     int                  `xml:"IsChild"`
-	Options     []ExtAttributeOption `xml:"Options>Option"`
-}
-
-// ExtAttributeOption is a selectable option for an extended attribute.
-type ExtAttributeOption struct {
-	ID          int    `xml:"ID"`
-	Value       string `xml:"Value"`
-	Title       string `xml:"Title"`
-	Description string `xml:"Description"`
-}
-
-// GetIDNCodesResponse contains language codes supported for IDN domains.
-type GetIDNCodesResponse struct {
-	XMLName xml.Name `xml:"interface-response"`
-	Response
-	ResponseMeta
-	TLDs IDNCodesTLDs `xml:"tlds"`
-}
-
-// IDNCodesTLDs groups IDN language support by TLD.
-type IDNCodesTLDs struct {
-	TLDs []IDNCodesTLD `xml:"tld"`
-}
-
-// IDNCodesTLD lists the IDN languages available for a TLD.
-type IDNCodesTLD struct {
-	TLD       string        `xml:"tld,attr"`
-	Languages []IDNLanguage `xml:"language"`
-}
-
-// IDNLanguage represents an IDN language code and name.
-type IDNLanguage struct {
-	Code string `xml:"code,attr"`
-	Name string `xml:"name,attr"`
-}
-
-// GetNameSuggestionsResponse contains suggested alternative domains.
-type GetNameSuggestionsResponse struct {
-	XMLName xml.Name `xml:"interface-response"`
-	Response
-	ResponseMeta
-	Suggestions RawXML `xml:"suggestions"`
-}
-
 // PreconfigureResponse reports on TLD preconfiguration results.
 type PreconfigureResponse struct {
 	XMLName xml.Name `xml:"interface-response"`
@@ -153,6 +88,23 @@ type PreconfigureResponse struct {
 	ResponseMeta
 	PreConfigSuccess string `xml:"PreConfigSuccess"`
 	Count            int    `xml:"Count"`
+}
+
+type DomainPurchase struct {
+	Response
+	OrderID           string             `xml:"OrderID"`
+	OrderDelayed      bool               `xml:"OrderDelayed"`
+	OrderStatus       string             `xml:"OrderStatus"`
+	OrderDescription  string             `xml:"OrderDescription"`
+	DomainInfo        DomainPurchaseInfo `xml:"Info"`
+	TotalCharged      float64            `xml:"TotalCharged"`
+	RegistrantPartyID string             `xml:"RegistrantPartyID"`
+	IsRealTimeTLD     bool               `xml:"IsRealTimeTLD"`
+}
+
+type DomainPurchaseInfo struct {
+	RegistryCreateDate string `xml:"RegistryCreateDate"`
+	RegistryExpDate    string `xml:"RegistryExpDate"`
 }
 
 // QueueDomainPurchaseResponse captures a queued domain purchase result.
@@ -431,33 +383,39 @@ func (r *GetConfirmationSettingsResponse) Decode() *response.GetConfirmationSett
 	}
 }
 
-func (r *GetExtAttributesResponse) Decode() *response.GetExtAttributes {
-	return &response.GetExtAttributes{
-		Attributes:   decodeExtAttributes(r.Attributes.Items),
-		ResponseMeta: decodeResponseMeta(r.Response, r.ResponseMeta),
-	}
-}
-
-func (r *GetIDNCodesResponse) Decode() *response.GetIDNCodes {
-	return &response.GetIDNCodes{
-		TLDs:         decodeIDNCodesTLDs(r.TLDs.TLDs),
-		ResponseMeta: decodeResponseMeta(r.Response, r.ResponseMeta),
-	}
-}
-
-func (r *GetNameSuggestionsResponse) Decode() *response.GetNameSuggestions {
-	return &response.GetNameSuggestions{
-		SuggestionsXML: r.Suggestions.Raw,
-		ResponseMeta:   decodeResponseMeta(r.Response, r.ResponseMeta),
-	}
-}
-
 func (r *PreconfigureResponse) Decode() *response.Preconfigure {
 	return &response.Preconfigure{
 		PreConfigSuccess: r.PreConfigSuccess,
 		Count:            r.Count,
 		ResponseMeta:     decodeResponseMeta(r.Response, r.ResponseMeta),
 	}
+}
+
+func (d *DomainPurchase) Decode() (*response.DomainPurchase, error) {
+	if d.OrderID == "" {
+		return nil, fmt.Errorf("no OrderID received - RRPCode: %d", d.ResponseCode)
+	}
+	result := response.DomainPurchase{
+		OrderID:          d.OrderID,
+		OrderCompleted:   d.DomainInfo.RegistryCreateDate != "",
+		OrderStatus:      d.OrderStatus,
+		OrderDescription: d.OrderDescription,
+		Price:            d.TotalCharged,
+	}
+	var err error
+	if d.DomainInfo.RegistryCreateDate != "" {
+		result.RegistrationDate, err = ParseDate(d.DomainInfo.RegistryCreateDate)
+		if err != nil {
+			return nil, fmt.Errorf("failed to parse RegistryCreateDate: %w", err)
+		}
+	}
+	if d.DomainInfo.RegistryExpDate != "" {
+		result.ExpirationDate, err = ParseDate(d.DomainInfo.RegistryExpDate)
+		if err != nil {
+			return nil, fmt.Errorf("failed to parse RegistryExpDate: %w", err)
+		}
+	}
+	return &result, nil
 }
 
 func (r *QueueDomainPurchaseResponse) Decode() *response.QueueDomainPurchase {
@@ -589,70 +547,6 @@ func decodeCancelOrderDomains(entries []CancelOrderEntry) []response.CancelOrder
 		result = append(result, response.CancelOrderDomain{
 			DomainName:  entry.DomainName,
 			Description: entry.Description,
-		})
-	}
-	return result
-}
-
-func decodeExtAttributes(attrs []ExtAttribute) []response.ExtAttribute {
-	if len(attrs) == 0 {
-		return nil
-	}
-	result := make([]response.ExtAttribute, 0, len(attrs))
-	for _, attr := range attrs {
-		result = append(result, response.ExtAttribute{
-			ID:          attr.ID,
-			Name:        attr.Name,
-			Application: attr.Application,
-			UserDefined: attr.UserDefined,
-			Required:    attr.Required,
-			Description: attr.Description,
-			IsChild:     attr.IsChild,
-			Options:     decodeExtAttributeOptions(attr.Options),
-		})
-	}
-	return result
-}
-
-func decodeExtAttributeOptions(options []ExtAttributeOption) []response.ExtAttributeOption {
-	if len(options) == 0 {
-		return nil
-	}
-	result := make([]response.ExtAttributeOption, 0, len(options))
-	for _, option := range options {
-		result = append(result, response.ExtAttributeOption{
-			ID:          option.ID,
-			Value:       option.Value,
-			Title:       option.Title,
-			Description: option.Description,
-		})
-	}
-	return result
-}
-
-func decodeIDNCodesTLDs(tlds []IDNCodesTLD) []response.IDNCodesTLD {
-	if len(tlds) == 0 {
-		return nil
-	}
-	result := make([]response.IDNCodesTLD, 0, len(tlds))
-	for _, tld := range tlds {
-		result = append(result, response.IDNCodesTLD{
-			TLD:       tld.TLD,
-			Languages: decodeIDNLanguages(tld.Languages),
-		})
-	}
-	return result
-}
-
-func decodeIDNLanguages(langs []IDNLanguage) []response.IDNLanguage {
-	if len(langs) == 0 {
-		return nil
-	}
-	result := make([]response.IDNLanguage, 0, len(langs))
-	for _, lang := range langs {
-		result = append(result, response.IDNLanguage{
-			Code: lang.Code,
-			Name: lang.Name,
 		})
 	}
 	return result

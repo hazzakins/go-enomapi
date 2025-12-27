@@ -236,5 +236,6 @@ func (c *Client) SetRenew(req SetRenewRequest) (*response.SetRenew, error) {
 	err := c.Execute(cmd, &resp)
 	return resp.Decode(), err
 }
+
 // TODO: UpdateExpiredDomains
 // TODO: UpdateRenewalSettings

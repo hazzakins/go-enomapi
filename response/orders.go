@@ -1,29 +1,5 @@
 package response
 
-type AddBulkDomains struct {
-	Items              []AddBulkDomainsItem
-	ListCount          int
-	CartErrors         int
-	AllItemsSuccessful string
-	CartItems          int
-	Success            string
-	UseCart            string
-	ResponseMeta       ResponseMeta
-}
-
-type AddBulkDomainsItem struct {
-	WscAccountOverride string
-	ItemName           string
-	ItemID             string
-	Price              string
-	ICANNFees          string
-	CartItemID         string
-	NewDomainNameID    string
-	ItemAdded          string
-	ItemError          string
-	DomainName         string
-}
-
 type CancelOrder struct {
 	OrderID      string
 	Success      string
@@ -45,55 +21,6 @@ type GetConfirmationSettings struct {
 	EmailHead                    string
 	EmailTail                    string
 	ResponseMeta                 ResponseMeta
-}
-
-type GetExtAttributes struct {
-	Attributes   []ExtAttribute
-	ResponseMeta ResponseMeta
-}
-
-type ExtAttribute struct {
-	ID          int
-	Name        string
-	Application int
-	UserDefined bool
-	Required    int
-	Description string
-	IsChild     int
-	Options     []ExtAttributeOption
-}
-
-type ExtAttributeOption struct {
-	ID          int
-	Value       string
-	Title       string
-	Description string
-}
-
-type GetIDNCodes struct {
-	TLDs         []IDNCodesTLD
-	ResponseMeta ResponseMeta
-}
-
-type IDNCodesTLD struct {
-	TLD       string
-	Languages []IDNLanguage
-}
-
-type IDNLanguage struct {
-	Code string
-	Name string
-}
-
-type GetNameSuggestions struct {
-	SuggestionsXML string
-	ResponseMeta   ResponseMeta
-}
-
-type Preconfigure struct {
-	PreConfigSuccess string
-	Count            int
-	ResponseMeta     ResponseMeta
 }
 
 type QueueDomainPurchase struct {
@@ -192,25 +119,6 @@ type QueueOrderEntry struct {
 	OrderDate  string
 }
 
-type TMCheck struct {
-	LookupKey    string
-	ResponseMeta ResponseMeta
-}
-
-type TMGetNotice struct {
-	TcnID        string
-	TcnStartDate string
-	TcnExpDate   string
-	SLD          string
-	ClaimsXML    string
-	ResponseMeta ResponseMeta
-}
-
-type TMUpdateCart struct {
-	Success      string
-	ResponseMeta ResponseMeta
-}
-
 type GetAgreementPage struct {
 	ContentXML   string
 	ResponseMeta ResponseMeta
@@ -240,12 +148,4 @@ type QueueInfoEntry struct {
 	AnnouncementDate string
 	Price            string
 	InEAP            string
-}
-
-type DeleteRegistration struct {
-	DomainDeleted string
-	ErrString     string
-	ErrSource     string
-	ErrSection    string
-	ResponseMeta  ResponseMeta
 }
