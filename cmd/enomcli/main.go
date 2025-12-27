@@ -54,6 +54,7 @@ func main() {
 	fmt.Print("  1: Buy Domain\n")
 	fmt.Print("  2: Get Domain Info\n")
 	fmt.Print("  3: DNSSEC Operations\n")
+	fmt.Print("  4: Get TLD Pricing\n")
 	fmt.Print("Enter mode number: ")
 	mode, _ := reader.ReadString('\n')
 	mode = strings.TrimSpace(mode)
@@ -65,6 +66,8 @@ func main() {
 		getDomainInfo(client, reader)
 	case "3":
 		dnssecOperations(client, reader)
+	case "4":
+		getTLDPricing(client, reader)
 	default:
 		fmt.Println("Invalid mode selected.")
 	}
@@ -238,6 +241,73 @@ func dnssecOperations(client *enomapi.Client, reader *bufio.Reader) {
 	default:
 		fmt.Println("Invalid DNSSEC operation selected.")
 	}
+}
+
+func getTLDPricing(client *enomapi.Client, reader *bufio.Reader) {
+	domainsClient := &domains.Client{Client: client}
+
+	fmt.Print("Enter TLD (e.g. com). Leave blank for all: ")
+	tldInput, _ := reader.ReadString('\n')
+	tldInput = strings.TrimSpace(tldInput)
+	tldInput = strings.TrimPrefix(tldInput, ".")
+
+	var years *int
+	var useQtyEngine *bool
+	fmt.Print("Years for multi-year pricing (1, 2, 5, 10; blank for default): ")
+	yearsInput, _ := reader.ReadString('\n')
+	yearsInput = strings.TrimSpace(yearsInput)
+	if yearsInput != "" {
+		value, err := strconv.Atoi(yearsInput)
+		if err != nil {
+			fmt.Printf("Invalid years value: %s\n", yearsInput)
+			return
+		}
+		years = &value
+		useQtyEngineValue := true
+		useQtyEngine = &useQtyEngineValue
+	}
+
+	resp, err := domainsClient.PEGetDomainPricing(domains.PEGetDomainPricingRequest{
+		UseQtyEngine: useQtyEngine,
+		Years:        years,
+	})
+	if err != nil {
+		fmt.Printf("Error getting TLD pricing: %v\n", err)
+		return
+	}
+
+	products := resp.Products
+	if tldInput != "" {
+		filtered := make([]response.PEDomainPricingProduct, 0, 1)
+		for _, product := range products {
+			if strings.EqualFold(product.TLD, tldInput) {
+				filtered = append(filtered, product)
+			}
+		}
+		products = filtered
+		if len(products) == 0 {
+			fmt.Printf("No pricing found for .%s\n", tldInput)
+			return
+		}
+	}
+
+	fmt.Println("TLD pricing:")
+	for _, product := range products {
+		fmt.Printf("  .%s (ID %d)\n", product.TLD, product.TLDID)
+		fmt.Printf("    Register: $%.2f (reseller $%.2f) %s\n", product.RegisterPrice, product.ResellerPriceReg, formatEnabled(product.RegisterEnabled))
+		fmt.Printf("    Renew:    $%.2f (reseller $%.2f) %s\n", product.RenewPrice, product.ResellerPriceRenew, formatEnabled(product.RenewEnabled))
+		fmt.Printf("    Transfer: $%.2f (reseller $%.2f) %s\n", product.TransferPrice, product.ResellerPriceTran, formatEnabled(product.TransferEnabled))
+		if product.RGPEnabled || product.RGPPrice != 0 || product.ResellerPriceRGP != 0 {
+			fmt.Printf("    RGP:      $%.2f (reseller $%.2f) %s\n", product.RGPPrice, product.ResellerPriceRGP, formatEnabled(product.RGPEnabled))
+		}
+	}
+}
+
+func formatEnabled(enabled bool) string {
+	if enabled {
+		return "[enabled]"
+	}
+	return "[disabled]"
 }
 
 func getDnsSec(client *domainmanagement.Client, reader *bufio.Reader) {

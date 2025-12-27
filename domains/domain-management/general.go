@@ -340,18 +340,6 @@ func (c Client) GetExpiredDomains() (*response.GetExpiredDomains, error) {
 	return resp.Decode(), err
 }
 
-// GetExtendInfo returns renewal information for a domain.
-func (c Client) GetExtendInfo(domain enomapi.Domain) (*response.GetExtendInfo, error) {
-	resp := internal.GetExtendInfoResponse{}
-
-	cmd := c.NewCommand("GetExtendInfo")
-	cmd.AddParam("sld", domain.Name)
-	cmd.AddParam("tld", domain.Extension)
-
-	err := c.Execute(cmd, &resp)
-	return resp.Decode(), err
-}
-
 // GetHomeDomainList lists domains that use eNom name servers.
 func (c Client) GetHomeDomainList(req GetHomeDomainListRequest) (*response.GetHomeDomainList, error) {
 	resp := internal.GetHomeDomainListResponse{}
