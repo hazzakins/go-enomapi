@@ -7,7 +7,7 @@ Inspiration taken from https://git.sr.ht/~bitfehler/go-enom/
 
 ## Overview
 
-`go-enomapi` is an early-stage client focused on a small, usable core. Current coverage includes basic domain checks, TLD metadata, and a handful of domain-management helpers. The API surface is still evolving.
+`go-enomapi` is an early-stage client focused on a small, usable core. Current coverage includes domain availability and registration flows, renewals, transfers, pricing/TLD metadata, and a broad set of domain-management helpers. The API surface is still evolving.
 
 ## Installation
 
@@ -55,7 +55,8 @@ func main() {
 ## Configuration & Authentication
 
 - Use API key and reseller ID as provided by ENOM.
-- Point `NewClient` at the sandbox or production reseller URL.
+- Point `NewClient` at the sandbox or production reseller URL; this selects sandbox vs production.
+- The client uses `http.Get` directly today, so there is not yet a custom transport or context-aware timeout control.
 
 Example sandbox base URL:
 
@@ -65,13 +66,19 @@ https://resellertest.enom.com/
 
 ## Available APIs (current)
 
-- Domain availability check (`Check`)
-- Domain purchase (`Purchase`) (partial)
-- TLD list/details (`GetTLDList`, `GetTLDDetails`)
-- Name spinner (`NameSpinner`)
-- Domain info (`GetDomainInfo`)
+- Domains: availability (`Check`), registration (`Purchase`, `PurchaseWithOptions`, `AddBulkDomains`, `Preconfigure`, `DeleteRegistration`)
+- Orders/queues: `CancelOrder`, `GetConfirmationSettings`, `GetAgreementPage`, `QueueDomainPurchase`, `QueueGet*`, `QueueGetInfo`
+- Renewals: `Extend`, `ExtendRGP`, `GetRenew`, `GetExtendInfo`, `InsertNewOrder`, `SetRenew`, `UpdateExpiredDomains`, `UpdateRenewalSettings`
+- Transfers: `PushDomain`, `SynchAuthInfo`, `TP*` transfer endpoints, `UpdatePushList`
+- Domain management: contacts and whois, domain info/status/search, locks/passwords, portal helpers, reports
+- DNS & name servers: `GetDNS`, `SetDNSHost`, `ModifyNS`, `RegisterNameServer`, DNSSEC, host records (SPF/SRV/meta/hosts)
+- TLD metadata & pricing: `GetTLDList`, `GetTLDDetails`, `GetIDNCodes`, `GetExtAttributes`, `PEGetDomainPricing`, `PEGetTLDID`, `PESetPricing`, reseller pricing helpers
+- Suggestions & trademark: `GetNameSuggestions`, `NameSpinner`, `TMCheck`, `TMGetNotice`, `TMUpdateCart`
 
-Most endpoints are listed in `docs/` but are not yet implemented.
+## Not yet implemented
+
+- Account management, accounting/reporting, DNS hosting, email hosting, shopping cart, SSL certificates, value-added services, and whois publicity service APIs
+- Domain watchlists/overview, aftermarket (NM_*), TEL_*, and XXX_* endpoints
 
 ## CLI (experimental)
 
@@ -86,6 +93,3 @@ It expects `RESELLERID` and `APIKEY` in a `.env` file.
 
 Please see `PROJECTS.md` for the project roadmap and baseline tasks. Contributions are welcome — open issues or pull requests and follow standard Go project practices.
 
-## License
-
-This project will use an OSI-approved license; add a `LICENSE` file when ready.
