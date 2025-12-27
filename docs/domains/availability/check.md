@@ -402,10 +402,10 @@ https://resellertest.enom.com/interface.asp?command=check&sld=action&tld=agency&
 Related Commands
 ----------------
 
-[AddBulkDomains](../docs/AddBulkDomains.md)
+[AddBulkDomains](../docs/domains/registration/AddBulkDomains.md)
 
-[InsertNewOrder](../docs/InsertNewOrder.md)
+[InsertNewOrder](../docs/domains/renewal/InsertNewOrder.md)
 
-[NameSpinner](../docs/namespinner.md)
+[NameSpinner](../docs/domains/suggestions/namespinner.md)
 
-[Purchase](../docs/purchase.md)
+[Purchase](../docs/domains/registration/purchase.md)

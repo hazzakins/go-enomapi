@@ -4,68 +4,68 @@ Domains
 Domain Registration
 -------------------
 
-[AddBulkDomains](../docs/addbulkdomains.md)
+[AddBulkDomains](../docs/domains/registration/addbulkdomains.md)
 
-[CancelOrder](../docs/cancel-order.md)
+[CancelOrder](../docs/domains/orders/cancel-order.md)
 
-[Check](../docs/check.md) - *Check the availability of a domain name.*
+[Check](../docs/domains/availability/check.md) - *Check the availability of a domain name.*
 
-[GetConfirmationSettings](../docs/get-confirmation-settings.md)
+[GetConfirmationSettings](../docs/domains/orders/get-confirmation-settings.md)
 
-[GetExtAttributes](../docs/get-ext-attributes.md)
+[GetExtAttributes](../docs/domains/tld/get-ext-attributes.md)
 
-[GetIDNCodes](../docs/get-idn-codes.md)
+[GetIDNCodes](../docs/domains/tld/get-idn-codes.md)
 
-[GetNameSuggestions](../docs/getnamesuggestions.md)
+[GetNameSuggestions](../docs/domains/suggestions/getnamesuggestions.md)
 
-[GetTLDDetails](../docs/get-tld-details.md)
+[GetTLDDetails](../docs/domains/tld/get-tld-details.md)
 
-[GetTLDList](../docs/gettldlist.md)
+[GetTLDList](../docs/domains/tld/gettldlist.md)
 
-[NameSpinner](../docs/namespinner.md)
+[NameSpinner](../docs/domains/suggestions/namespinner.md)
 
-[Preconfigure](../docs/Preconfigure.md)
+[Preconfigure](../docs/domains/registration/Preconfigure.md)
 
-[Purchase](../docs/purchase.md)
+[Purchase](../docs/domains/registration/purchase.md)
 
-[Queue\_DomainPurchase](../docs/queue-domain-purchase.md)
+[Queue\_DomainPurchase](../docs/domains/orders/queue-domain-purchase.md)
 
-[Queue\_GetDomains](../docs/Queue_GetDomains.md)
+[Queue\_GetDomains](../docs/domains/orders/Queue_GetDomains.md)
 
-[Queue\_GetExtAttributes](../docs/queue-get-ext-attributes.md)
+[Queue\_GetExtAttributes](../docs/domains/orders/queue-get-ext-attributes.md)
 
-[Queue\_GetOrderDetail](../docs/queue-get-order-detail.md)
+[Queue\_GetOrderDetail](../docs/domains/orders/queue-get-order-detail.md)
 
-[Queue\_GetOrders](../docs/queue-get-orders.md)
+[Queue\_GetOrders](../docs/domains/orders/queue-get-orders.md)
 
-[TM\_Check](../docs/tm-check.md)
+[TM\_Check](../docs/domains/trademark/tm-check.md)
 
-[TM\_GetNotice](../docs/tm-getnotice.md)
+[TM\_GetNotice](../docs/domains/trademark/tm-getnotice.md)
 
-[TM\_UpdateCart](../docs/tm-updatecart.md)
+[TM\_UpdateCart](../docs/domains/trademark/tm-updatecart.md)
 
-[GetAgreementPage](../docs/GetAgreementPage.md)
+[GetAgreementPage](../docs/domains/orders/GetAgreementPage.md)
 
-[Queue\_GetInfo](../docs/Queue_GetInfo.md)
+[Queue\_GetInfo](../docs/domains/orders/Queue_GetInfo.md)
 
-[DeleteRegistration](../docs/DeleteRegistration.md)
+[DeleteRegistration](../docs/domains/registration/DeleteRegistration.md)
 
 Domain Renewal
 --------------
 
-[Extend](../docs/extend.md)
+[Extend](../docs/domains/renewal/extend.md)
 
-[Extend\_RGP](../docs/extend-rgp.md)
+[Extend\_RGP](../docs/domains/renewal/extend-rgp.md)
 
-[GetDomainExp](../docs/GetDomainExp.md)
+[GetDomainExp](../docs/domains/renewal/GetDomainExp.md)
 
-[GetExtendInfo](../docs/get-extend-info.md)
+[GetExtendInfo](../docs/domains/renewal/get-extend-info.md)
 
-[GetRenew](../docs/getrenew.md)
+[GetRenew](../docs/domains/renewal/getrenew.md)
 
-[InsertNewOrder](../docs/InsertNewOrder.md)
+[InsertNewOrder](../docs/domains/renewal/InsertNewOrder.md)
 
-[SetRenew](../docs/SetRenew.md)
+[SetRenew](../docs/domains/renewal/SetRenew.md)
 
 [UpdateExpiredDomains](../docs/updateexpireddomains.md)
 
@@ -74,162 +74,162 @@ Domain Renewal
 Domain Transfer
 ---------------
 
-[PE\_GetTLDID](../docs/pe-get-tld-id.md)
+[PE\_GetTLDID](../docs/domains/pricing/pe-get-tld-id.md)
 
-[PE\_SetPricing](../docs/pe-set-pricing.md)
+[PE\_SetPricing](../docs/domains/pricing/pe-set-pricing.md)
 
-[PushDomain](../docs/pushdomain.md)
+[PushDomain](../docs/domains/transfer/pushdomain.md)
 
-[RefillAccount](../docs/RefillAccount.md)
+[RefillAccount](../docs/domains/pricing/RefillAccount.md)
 
-[SetResellerServicesPricing](../docs/set-reseller-services-pricing.md)
+[SetResellerServicesPricing](../docs/domains/pricing/set-reseller-services-pricing.md)
 
-[SetResellerTLDPricing](../docs/set-reseller-tld-pricing.md)
+[SetResellerTLDPricing](../docs/domains/pricing/set-reseller-tld-pricing.md)
 
-[SynchAuthInfo](../docs/SynchAuthInfo.md)
+[SynchAuthInfo](../docs/domains/transfer/SynchAuthInfo.md)
 
-[TP\_CancelOrder](../docs/tp-cancel-order.md)
+[TP\_CancelOrder](../docs/domains/transfer/tp-cancel-order.md)
 
-[TP\_CreateOrder](../docs/TP_CreateOrder.md)
+[TP\_CreateOrder](../docs/domains/transfer/TP_CreateOrder.md)
 
-[TP\_GetDetailsByDomain](../docs/TP_GetDetailsByDomain.md)
+[TP\_GetDetailsByDomain](../docs/domains/transfer/TP_GetDetailsByDomain.md)
 
-[TP\_GetOrder](../docs/tp-get-order.md)
+[TP\_GetOrder](../docs/domains/transfer/tp-get-order.md)
 
-[TP\_GetOrderDetail](../docs/tp-get-order-detail.md)
+[TP\_GetOrderDetail](../docs/domains/transfer/tp-get-order-detail.md)
 
-[TP\_GetOrdersByDomain](../docs/tp-get-orders-by-domain.md)
+[TP\_GetOrdersByDomain](../docs/domains/transfer/tp-get-orders-by-domain.md)
 
-[TP\_GetOrderReview](../docs/TP_GetOrderReview.md)
+[TP\_GetOrderReview](../docs/domains/transfer/TP_GetOrderReview.md)
 
-[TP\_GetOrderStatuses](../docs/TP_GetOrderStatuses.md)
+[TP\_GetOrderStatuses](../docs/domains/transfer/TP_GetOrderStatuses.md)
 
-[TP\_GetTLDInfo](../docs/TP_GetTLDInfo.md)
+[TP\_GetTLDInfo](../docs/domains/transfer/TP_GetTLDInfo.md)
 
-[TP\_ResendEmail](../docs/tp-resend-email.md)
+[TP\_ResendEmail](../docs/domains/transfer/tp-resend-email.md)
 
-[TP\_ResubmitLocked](../docs/tp-resubmit-locked.md)
+[TP\_ResubmitLocked](../docs/domains/transfer/tp-resubmit-locked.md)
 
-[TP\_SubmitOrder](../docs/TP_SubmitOrder.md)
+[TP\_SubmitOrder](../docs/domains/transfer/TP_SubmitOrder.md)
 
-[TP\_UpdateOrderDetail](../docs/tp-update-order-detail.md)
+[TP\_UpdateOrderDetail](../docs/domains/transfer/tp-update-order-detail.md)
 
-[UpdateAccountPricing](../docs/update-account-pricing.md)
+[UpdateAccountPricing](../docs/domains/pricing/update-account-pricing.md)
 
-[UpdatePushList](../docs/updatepushlist.md)
+[UpdatePushList](../docs/domains/transfer/updatepushlist.md)
 
 Domain Management
 -----------------
 
 ### Host Records
 
-[GetDomainSRVHosts](../docs/get-domain-srv-hosts.md)
+[GetDomainSRVHosts](../docs/domains/domain-management/host-records/get-domain-srv-hosts.md)
 
-[GetHosts](../docs/gethosts.md)
+[GetHosts](../docs/domains/domain-management/host-records/gethosts.md)
 
-[GetMetaTag](../docs/get-meta-tag.md)
+[GetMetaTag](../docs/domains/domain-management/host-records/get-meta-tag.md)
 
-[GetRegHosts](../docs/get-reg-hosts.md)
+[GetRegHosts](../docs/domains/domain-management/host-records/get-reg-hosts.md)
 
-[GetSPFHosts](../docs/get-spf-hosts.md)
+[GetSPFHosts](../docs/domains/domain-management/host-records/get-spf-hosts.md)
 
-[SetDomainSRVHosts](../docs/SetDomainSRVHosts.md)
+[SetDomainSRVHosts](../docs/domains/domain-management/host-records/SetDomainSRVHosts.md)
 
-[SetHosts](../docs/set-hosts.md)
+[SetHosts](../docs/domains/domain-management/host-records/set-hosts.md)
 
-[SetSPFHosts](../docs/set-spf-hosts.md)
+[SetSPFHosts](../docs/domains/domain-management/host-records/set-spf-hosts.md)
 
-[UpdateMetaTag](../docs/update-meta-tag.md)
+[UpdateMetaTag](../docs/domains/domain-management/host-records/update-meta-tag.md)
 
 ### Name Servers
 
-[AddDnsSec](../docs/adddnssec.md)
+[AddDnsSec](../docs/domains/domain-management/name-servers/adddnssec.md)
 
-[CheckNSStatus](../docs/check-ns-status.md)
+[CheckNSStatus](../docs/domains/domain-management/name-servers/check-ns-status.md)
 
-[DeleteDnsSec](../docs/deletednssec.md)
+[DeleteDnsSec](../docs/domains/domain-management/name-servers/deletednssec.md)
 
-[DeleteNameServer](../docs/delete-name-server.md)
+[DeleteNameServer](../docs/domains/domain-management/name-servers/delete-name-server.md)
 
-[GetDNS](../docs/GetDNS.md)
+[GetDNS](../docs/domains/domain-management/name-servers/GetDNS.md)
 
-[GetDnsSec](../docs/getdnssec.md)
+[GetDnsSec](../docs/domains/domain-management/name-servers/getdnssec.md)
 
-[GetDNSStatus](../docs/get-dns-status.md)
+[GetDNSStatus](../docs/domains/domain-management/name-servers/get-dns-status.md)
 
-[GetHomeDomainList](../docs/get-home-domain-list.md)
+[GetHomeDomainList](../docs/domains/domain-management/general/get-home-domain-list.md)
 
-[ModifyNS](../docs/modifyns.md)
+[ModifyNS](../docs/domains/domain-management/name-servers/modifyns.md)
 
-[ModifyNSHosting](../docs/modify-ns-hosting.md)
+[ModifyNSHosting](../docs/domains/domain-management/name-servers/modify-ns-hosting.md)
 
-[RegisterNameServer](../docs/RegisterNameServer.md)
+[RegisterNameServer](../docs/domains/domain-management/name-servers/RegisterNameServer.md)
 
-[SetDNSHost](../docs/setdnshost.md)
+[SetDNSHost](../docs/domains/domain-management/name-servers/setdnshost.md)
 
-[UpdateNameServer](../docs/UpdateNameServer.md)
+[UpdateNameServer](../docs/domains/domain-management/name-servers/UpdateNameServer.md)
 
 ### Contacts
 
-[Contacts](../docs/contacts.md)
+[Contacts](../docs/domains/domain-management/contacts/contacts.md)
 
-[GetContacts](../docs/getcontacts.md)
+[GetContacts](../docs/domains/domain-management/contacts/getcontacts.md)
 
-[GetWhoisContact](../docs/getwhoiscontact.md)
+[GetWhoisContact](../docs/domains/domain-management/contacts/getwhoiscontact.md)
 
-[GetWPPSInfo](../docs/get-wpps-info.md)
+[GetWPPSInfo](../docs/domains/domain-management/contacts/get-wpps-info.md)
 
 ### General
 
-[AdvancedDomainSearch](../docs/advanced-domain-search.md)
+[AdvancedDomainSearch](../docs/domains/domain-management/general/advanced-domain-search.md)
 
-[GetAllDomains](../docs/get-all-domains.md)
+[GetAllDomains](../docs/domains/domain-management/general/get-all-domains.md)
 
-[GetDomainCount](../docs/get-domain-count.md)
+[GetDomainCount](../docs/domains/domain-management/general/get-domain-count.md)
 
-[GetDomainInfo](../docs/getdomaininfo.md)
+[GetDomainInfo](../docs/domains/domain-management/general/getdomaininfo.md)
 
-[GetDomainNameID](../docs/GetDomainNameID.md)
+[GetDomainNameID](../docs/domains/domain-management/general/GetDomainNameID.md)
 
-[GetDomains](../docs/get-domains.md)
+[GetDomains](../docs/domains/domain-management/general/get-domains.md)
 
-[GetDomainStatus](../docs/GetDomainStatus.md)
+[GetDomainStatus](../docs/domains/domain-management/general/GetDomainStatus.md)
 
-[GetDomainSldTld](../docs/getdomainsldtld.md)
+[GetDomainSldTld](../docs/domains/domain-management/general/getdomainsldtld.md)
 
-[GetExpiredDomains](../docs/GetExpiredDomains.md)
+[GetExpiredDomains](../docs/domains/domain-management/general/GetExpiredDomains.md)
 
-[GetNews](../docs/get-news.md)
+[GetNews](../docs/domains/domain-management/general/get-news.md)
 
-[GetPasswordBit](../docs/get-password-bit.md)
+[GetPasswordBit](../docs/domains/domain-management/general/get-password-bit.md)
 
-[GetProductNews](../docs/get-product-news.md)
+[GetProductNews](../docs/domains/domain-management/general/get-product-news.md)
 
-[GetRegistrationStatus](../docs/get-registration-status.md)
+[GetRegistrationStatus](../docs/domains/domain-management/general/get-registration-status.md)
 
-[GetRegLock](../docs/getreglock.md)
+[GetRegLock](../docs/domains/domain-management/general/getreglock.md)
 
-[GetSubAccountPassword](../docs/get-sub-account-password.md)
+[GetSubAccountPassword](../docs/domains/domain-management/general/get-sub-account-password.md)
 
-[ParseDomain](../docs/parse-domain.md)
+[ParseDomain](../docs/domains/domain-management/general/parse-domain.md)
 
-[Portal\_GetAwardedDomains](../docs/Portal_GetAwardedDomains.md)
+[Portal\_GetAwardedDomains](../docs/domains/domain-management/general/Portal_GetAwardedDomains.md)
 
-[Portal\_GetDomainInfo](../docs/portal-get-domain-info.md)
+[Portal\_GetDomainInfo](../docs/domains/domain-management/general/portal-get-domain-info.md)
 
-[Portal\_GetToken](../docs/portal-get-token.md)
+[Portal\_GetToken](../docs/domains/domain-management/general/portal-get-token.md)
 
-[Portal\_UpdateAwardedDomains](../docs/portal-update-awarded-domains.md)
+[Portal\_UpdateAwardedDomains](../docs/domains/domain-management/general/portal-update-awarded-domains.md)
 
-[RPT\_GetReport](../docs/rpt_getreport.md)
+[RPT\_GetReport](../docs/domains/domain-management/general/rpt_getreport.md)
 
-[SetPassword](../docs/SetPassword.md)
+[SetPassword](../docs/domains/domain-management/general/SetPassword.md)
 
-[SetRegLock](../docs/SetRegLock.md)
+[SetRegLock](../docs/domains/domain-management/general/SetRegLock.md)
 
-[StatusDomain](../docs/status-domain.md)
+[StatusDomain](../docs/domains/domain-management/general/status-domain.md)
 
-[ValidatePassword](../docs/ValidatePassword.md)
+[ValidatePassword](../docs/domains/domain-management/general/ValidatePassword.md)
 
 ### Magic Folders
 

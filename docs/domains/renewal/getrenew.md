@@ -160,7 +160,7 @@ RequestDateTime=2/4/2015 12:21:47 PM
 Related Commands
 ----------------
 
-[Extend](../docs/extend.md)
+[Extend](../docs/domains/renewal/extend.md)
 
 GetAllDomains
 
@@ -178,7 +178,7 @@ GetPasswordBit
 
 GetPOPExpirations
 
-[GetRegLock](../docs/getreglock.md)
+[GetRegLock](../docs/domains/domain-management/general/getreglock.md)
 
 GetSubAccountPassword
 

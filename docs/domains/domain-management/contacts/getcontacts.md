@@ -114,9 +114,9 @@ Response Params
 Related Commands
 ----------------
 
-[Contacts](../docs/contacts.md)
+[Contacts](../docs/domains/domain-management/contacts/contacts.md)
 
-[GetDomainInfo](../docs/getdomaininfo.md)
+[GetDomainInfo](../docs/domains/domain-management/general/getdomaininfo.md)
 
 [GetCusPreferences](../docs/get-customer-preferences.md)
 

@@ -149,6 +149,6 @@ Related Commands
 
 [AddToCart](../docs/addtocart.md)
 
-[Check](../docs/check.md)
+[Check](../docs/domains/availability/check.md)
 
-[Purchase](../docs/purchase.md)
+[Purchase](../docs/domains/registration/purchase.md)

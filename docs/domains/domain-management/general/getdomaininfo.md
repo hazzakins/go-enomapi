@@ -238,9 +238,9 @@ Response Params
 Related Commands
 ----------------
 
-[GetContacts](../docs/getcontacts.md)
+[GetContacts](../docs/domains/domain-management/contacts/getcontacts.md)
 
-[Contacts](../docs/contacts.md)
+[Contacts](../docs/domains/domain-management/contacts/contacts.md)
 
 [GetCusPreferences](../docs/get-customer-preferences.md)
 

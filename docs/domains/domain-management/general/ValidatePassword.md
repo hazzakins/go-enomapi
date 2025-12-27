@@ -134,9 +134,9 @@ GetAllDomains
 
 GetDomainCount
 
-[GetDomainExp](../docs/GetDomainExp.md)
+[GetDomainExp](../docs/domains/renewal/GetDomainExp.md)
 
-[GetDomainInfo](../docs/getdomaininfo.md)
+[GetDomainInfo](../docs/domains/domain-management/general/getdomaininfo.md)
 
 GetDomains
 
@@ -146,16 +146,16 @@ GetPasswordBit
 
 GetRegistrationStatus
 
-[GetRegLock](../docs/getreglock.md)
+[GetRegLock](../docs/domains/domain-management/general/getreglock.md)
 
-[GetRenew](../docs/getrenew.md)
+[GetRenew](../docs/domains/renewal/getrenew.md)
 
 GetSubAccountPassword
 
 SetPassword
 
-[SetRegLock](../docs/SetRegLock.md)
+[SetRegLock](../docs/domains/domain-management/general/SetRegLock.md)
 
-[SetRenew](../docs/SetRenew.md)
+[SetRenew](../docs/domains/renewal/SetRenew.md)
 
 StatusDomain

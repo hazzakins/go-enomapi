@@ -121,10 +121,10 @@ Related Commands
 - [VAS\_Delete](../docs/vas-delete.md)
 - [VAS\_Cancel](../docs/vas-cancel.md)
 - [VAS\_GetPricing](../docs/vas-get-pricing.md)
-- [Purchase](../docs/purchase.md)
+- [Purchase](../docs/domains/registration/purchase.md)
 - [AddToCart](../docs/add-to-cart.md)
 - [PurchaseServices](../docs/purchaseservices.md)
-- [GetHosts](../docs/gethosts.md)
+- [GetHosts](../docs/domains/domain-management/host-records/gethosts.md)
 - [SetHosts](../docs/sethosts.md)
 
 **[Back to Top](#top)

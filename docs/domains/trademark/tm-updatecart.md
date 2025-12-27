@@ -26,7 +26,7 @@ Input Parameters
 | uid | string | Required | Your Account ID                                                      |
 | pw       | string | Required | Your API Token |
 | SLD | string | Required | Second-level domain name \(for example, enom in enom.com\)                               |
-| tcnID      | string | Required | Trademark Claims notification ID. Use the [TM\_GetNotice](../docs/tm-getnotice.md) command to retrieve the value |
+| tcnID      | string | Required | Trademark Claims notification ID. Use the [TM\_GetNotice](../docs/domains/trademark/tm-getnotice.md) command to retrieve the value |
 | tcnExpDate | string | Required | Trademark Claims expiration date \(UTC\) *Formatted as* *2014-01-10T08:00:00.0Z*                    |
 | tcnAcceptDate  | string | Required | The date and time when the registrant acknowledged the Trademark Claims Notice *Formatted as* *2014-01-10T08:00:00.0Z* |
 | ResponseType | string | Optional | Format of response. *Permitted values are Text \(default\), HTML, or XML.*                       |
@@ -101,5 +101,5 @@ RequestDateTime=2/6/2015 1:14:39 PM
 ```
 Related Commands
 ----------------
-- [TM\_GetNotice](../docs/tm-getnotice.md)
-- [TM\_Check](../docs/tm-check.md)
+- [TM\_GetNotice](../docs/domains/trademark/tm-getnotice.md)
+- [TM\_Check](../docs/domains/trademark/tm-check.md)

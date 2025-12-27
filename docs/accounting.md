@@ -10,7 +10,7 @@ Accounting Management
 
 [PE\_GetCustomerPricing](../docs/pe_getcustomerpricing.md)
 
-[PE\_GetDomainPricing](../docs/pe_getdomainpricing.md)
+[PE\_GetDomainPricing](../docs/domains/pricing/pe_getdomainpricing.md)
 
 [PE\_GetEapPricing](../docs/pe_geteappricing.md)
 
@@ -28,7 +28,7 @@ Accounting Management
 
 [PE\_GetRocketPrice](../docs/pe_getrocketprice.md)
 
-[RefillAccount](../docs/RefillAccount.md)
+[RefillAccount](../docs/domains/pricing/RefillAccount.md)
 
 [UpdateNotificationAmount](../docs/updatenotificationamount.md)
 
@@ -45,10 +45,10 @@ Reports Management
 
 [GetReport](../docs/getreport.md)
 
-[GetTLDList](../docs/gettldlist.md)
+[GetTLDList](../docs/domains/tld/gettldlist.md)
 
 [GetTransHistory](../docs/gettranshistory.md)
 
-[RPT\_GetReport](../docs/rpt_getreport.md)
+[RPT\_GetReport](../docs/domains/domain-management/general/rpt_getreport.md)
 
 [SetCustomerDefinedData](../docs/setcustomerdefineddata.md)

@@ -1,7 +1,7 @@
 Shopping Cart
 =============
 
-[AddBulkDomains](../docs/AddBulkDomains.md)
+[AddBulkDomains](../docs/domains/registration/AddBulkDomains.md)
 
 [AddToCart](../docs/addtocart.md)
 
@@ -9,7 +9,7 @@ Shopping Cart
 
 [GetCartContent](../docs/getcartcontent.md)
 
-[InsertNewOrder](../docs/InsertNewOrder.md)
+[InsertNewOrder](../docs/domains/renewal/InsertNewOrder.md)
 
 [PurchasePreview](../docs/purchasepreview.md)
 

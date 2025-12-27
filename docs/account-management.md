@@ -39,7 +39,7 @@ Account Management
 
 [GetSubaccountsDetailList](http://www.enom.com/api/API%20topics/api_GetSubaccountsDetailList.htm)
 
-[GetTLDList](../docs/gettldlist.md)
+[GetTLDList](../docs/domains/tld/gettldlist.md)
 
 [GetTransHistory](../docs/gettranshistory.md)
 
@@ -67,7 +67,7 @@ Account Management
 
 [GetAllAccountInfo](../docs/getallaccountinfo.md)
 
-[RPT\_GetReport](../docs/rpt_getreport.md)
+[RPT\_GetReport](../docs/domains/domain-management/general/rpt_getreport.md)
 
 ***Customer Support***
 

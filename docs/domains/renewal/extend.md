@@ -57,7 +57,7 @@ https://resellertest.enom.com/interface.asp?command=Extend&uid=YourAccountID&pw=
 | UseCreditCard         | string | Optional                                      | If "UseCreditCard=yes", use eNom’s credit-card processing services. When you pass credit card information with this command, you must secure HTTPS protocol. | 3    |
 | EndUserIP           | string | Required If "UseCreditCard=yes " is used.                     | End user’s IP address. This is used in fraud checking, as part of our order processing service. Use format NNN.NNN.NNN.NNN. | 15    |
 | ChargeAmount         | float | Required If "UseCreditCard=yes " is used.                     | Amount to charge per year for the renewal. Use DD.cc format | 6    |
-| CustomerSuppliedPrice     | float | Required If "UseCreditCard=yes " is used and the domain name is a Premium Domain. | The price of the domain's renewal, as shown in the ouput of the [Check](../docs/check.md) command. |     |
+| CustomerSuppliedPrice     | float | Required If "UseCreditCard=yes " is used and the domain name is a Premium Domain. | The price of the domain's renewal, as shown in the ouput of the [Check](../docs/domains/availability/check.md) command. |     |
 | CardType           | string | Required If "UseCreditCard=yes " is used.                     | Type of credit card. Permitted values are: - Visa - Mastercard - AmEx - Discover | 20    |
 | CCName            | string | Required If "UseCreditCard=yes " is used.                     | Cardholder's name | 60    |
 | CreditCardNumber       | int | Required If "UseCreditCard=yes " is used.                     | Customer's credit card number | 128   |

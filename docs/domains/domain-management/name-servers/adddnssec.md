@@ -64,6 +64,6 @@ Check the return parameter "ErrCount". If it is greater than 0, the transaction 
 Related Commands
 ----------------
 
-[DeleteDnsSec](../docs/deletednssec.md)
+[DeleteDnsSec](../docs/domains/domain-management/name-servers/deletednssec.md)
 
-[GetDnsSec](../docs/getdnssec.md)
+[GetDnsSec](../docs/domains/domain-management/name-servers/getdnssec.md)

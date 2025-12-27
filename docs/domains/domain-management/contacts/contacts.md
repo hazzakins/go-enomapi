@@ -189,7 +189,7 @@ Related Commands
 
 AddContact
 
-[GetContacts](../docs/getcontacts.md)
+[GetContacts](../docs/domains/domain-management/contacts/getcontacts.md)
 
 [GetCusPreferences](../docs/get-customer-preferences.md)
 

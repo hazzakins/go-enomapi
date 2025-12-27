@@ -10,7 +10,7 @@ Use this command to retrieve an itemized list of Trademark Clearinghouse \(TMCH\
 
 tcnID \(Trademark Clearinghouse Claims Notification ID\) is valid for 24 to 48 hours.
 
-The countdown starts immediately after [TM\_Check](../docs/tm-check.md) command is successfully executed.
+The countdown starts immediately after [TM\_Check](../docs/domains/trademark/tm-check.md) command is successfully executed.
 
 Availability
 ------------
@@ -31,7 +31,7 @@ Input Parameters
 | pw       | string | Required | Your API Token |
 | SLD | string | Required | Second-level domain name \(for example, enom in enom.com\)                                                          |
 | TLD       | string | Required | Top-level domain name \(extension\) |
-| LookupKey | string | Required | A unique Lookup Key for a domain. Use the [TM\_Check](../docs/tm-check.md) command to retrieve the value. **Please use URL Encoding to avoid incorrect data being sent.** |
+| LookupKey | string | Required | A unique Lookup Key for a domain. Use the [TM\_Check](../docs/domains/trademark/tm-check.md) command to retrieve the value. **Please use URL Encoding to avoid incorrect data being sent.** |
 | ResponseType  | string | Optional | Format of response. *Permitted values are Text \(default\), HTML, or XML.* |
 
 Returned Parameters and Values
@@ -191,5 +191,5 @@ RequestDateTime=2/6/2015 12:31:10 PM
 ```
 Related Commands
 ----------------
-- [TM\_Check](../docs/tm-check.md)
-- [TM\_UpdateCart](../docs/tm-updatecart.md)
+- [TM\_Check](../docs/domains/trademark/tm-check.md)
+- [TM\_UpdateCart](../docs/domains/trademark/tm-updatecart.md)

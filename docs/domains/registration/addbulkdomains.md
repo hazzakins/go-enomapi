@@ -264,15 +264,15 @@ Related Commands
 
 [AddToCart](../docs/addtocart.md)
 
-[Check](../docs/check.md)
+[Check](../docs/domains/availability/check.md)
 
 [DeleteFromCart](../docs/DeleteFromCart.md)
 
 [GetCartContent](../docs/getcartcontent.md)
 
-[InsertNewOrder](../docs/InsertNewOrder.md)
+[InsertNewOrder](../docs/domains/renewal/InsertNewOrder.md)
 
-[Purchase](../docs/purchase.md)
+[Purchase](../docs/domains/registration/purchase.md)
 
 [PurchasePreview](../docs/purchasepreview.md)
 

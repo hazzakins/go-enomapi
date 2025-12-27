@@ -32,8 +32,8 @@ The **Customer Experience** is how we will support these changes in all of our r
 
 | API Commands                   | |
 | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
-| [GetDomainInfo](../docs/getdomaininfo.md#IRTP) | Returns the current domain information along with the current IRTP Settings for this domain. |
-| [GetContacts](../docs/getcontacts.md#IRTP) | Returns the current contact information along with the current IRTP OptOut status for this domain's registrant contact information. |
+| [GetDomainInfo](../docs/domains/domain-management/general/getdomaininfo.md#IRTP) | Returns the current domain information along with the current IRTP Settings for this domain. |
+| [GetContacts](../docs/domains/domain-management/contacts/getcontacts.md#IRTP) | Returns the current contact information along with the current IRTP OptOut status for this domain's registrant contact information. |
 2. Making Registrant Contact Changes
 -------------------------------------
 
@@ -47,9 +47,9 @@ Note that the actual change event can override the global opt-out setting regard
 
 | API Commands                       | |
 | -------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [PushDomain](../docs/pushdomain.md#IRTP)        | When pushing a domain from one Enom account to another Enom account, you have the choice to push the domain's existing contact information too and this will not invoke IRTP. However, if you elect to push a domain and that causes the domain's registrant contact information to change in the process, then this will invoice IRTP for each domain in the push. |
+| [PushDomain](../docs/domains/transfer/pushdomain.md#IRTP)        | When pushing a domain from one Enom account to another Enom account, you have the choice to push the domain's existing contact information too and this will not invoke IRTP. However, if you elect to push a domain and that causes the domain's registrant contact information to change in the process, then this will invoice IRTP for each domain in the push. |
 | [UpdateAccountInfo](../docs/updateaccountinfo.md#IRTP) | When you update your account's global information **AND** that account information is used as any of your domain's registrant contact information, then you will invoke IRTP for each domain where this is true.                                                                           |
-| [Contacts](../docs/contacts.md#IRTP)          | When you update the registrant's contact information on a domain name, you may invoke IRTP if you are changing the first name, last name, org name, or email address. |
+| [Contacts](../docs/domains/domain-management/contacts/contacts.md#IRTP)          | When you update the registrant's contact information on a domain name, you may invoke IRTP if you are changing the first name, last name, org name, or email address. |
 3. After Registrant Contact Changes \(Change Notification\)
 ------------------------------------------------------------
 

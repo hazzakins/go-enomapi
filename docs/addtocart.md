@@ -193,15 +193,15 @@ Check the return parameter "ErrCount". If greater than 0, the transaction failed
 Related Commands
 ----------------
 
-[AddBulkDomains](../docs/addbulkdomains.md)
+[AddBulkDomains](../docs/domains/registration/addbulkdomains.md)
 
 [DeleteFromCart](../docs/DeleteFromCart.md)
 
 [GetCartContent](../docs/getcartcontent.md)
 
-[GetHomeDomainList](../docs/get-home-domain-list.md)
+[GetHomeDomainList](../docs/domains/domain-management/general/get-home-domain-list.md)
 
-[InsertNewOrder](../docs/InsertNewOrder.md)
+[InsertNewOrder](../docs/domains/renewal/InsertNewOrder.md)
 
 [PurchasePreview](../docs/purchasepreview.md)
 

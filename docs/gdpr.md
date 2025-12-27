@@ -51,13 +51,13 @@ More commands might be added if there are regulation or policy changes.
 
 | Category      | API Commands |                                 |
 | ------------------- | ------------------------------------------------- | ---------------------------------------------------------------- |
-| Domain registration | [Purchase](../docs/purchase.md) | Purchase a domain name or premium domain in real time.     |
-|           | [Preconfigure](../docs/Preconfigure.md) | Configure domain in the cart that requires extended attributes. |
-|           | [InsertNewOrder](../docs/InsertNewOrder.md) | Finalize purchase of the cart contents.             |
-| Contacts update   | [Contacts](../docs/contacts.md) | Update contact information for a domain name.          |
-|           | [GetContacts](../docs/getcontacts.md) | Get all contact data for a domain name.             |
-| Domain transfer   | [TP\_CreateOrder](../docs/TP_CreateOrder.md) | Transfer domains into an account.                |
-| Domain push     | [PushDomain](../docs/pushdomain.md) | Push a domain name into another account.            |
+| Domain registration | [Purchase](../docs/domains/registration/purchase.md) | Purchase a domain name or premium domain in real time.     |
+|           | [Preconfigure](../docs/domains/registration/Preconfigure.md) | Configure domain in the cart that requires extended attributes. |
+|           | [InsertNewOrder](../docs/domains/renewal/InsertNewOrder.md) | Finalize purchase of the cart contents.             |
+| Contacts update   | [Contacts](../docs/domains/domain-management/contacts/contacts.md) | Update contact information for a domain name.          |
+|           | [GetContacts](../docs/domains/domain-management/contacts/getcontacts.md) | Get all contact data for a domain name.             |
+| Domain transfer   | [TP\_CreateOrder](../docs/domains/transfer/TP_CreateOrder.md) | Transfer domains into an account.                |
+| Domain push     | [PushDomain](../docs/domains/transfer/pushdomain.md) | Push a domain name into another account.            |
 | Consent email    | [SendConsentEmail](../docs/sendconsentemail.md) | Send or resend consent email to the contact.          |
 
 Consent level value is returned in some commands to inform user the status of the contact creation or changes.

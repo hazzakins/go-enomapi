@@ -190,7 +190,7 @@ Related Commands
 
 [AddDomainFolder](../docs/adddomainfolder.md)
 
-[AdvancedDomainSearch](../docs/advanced-domain-search.md)
+[AdvancedDomainSearch](../docs/domains/domain-management/general/advanced-domain-search.md)
 
 [DeleteDomainFolder](../docs/deletedomainfolder.md)
 

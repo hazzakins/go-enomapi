@@ -107,5 +107,5 @@ RequestDateTime=2/6/2015 12:27:25 PM
 ```
 Related Commands
 ----------------
-- [TM\_GetNotice](../docs/tm-getnotice.md)
-- [TM\_UpdateCart](../docs/tm-updatecart.md)
+- [TM\_GetNotice](../docs/domains/trademark/tm-getnotice.md)
+- [TM\_UpdateCart](../docs/domains/trademark/tm-updatecart.md)

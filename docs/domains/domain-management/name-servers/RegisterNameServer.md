@@ -151,7 +151,7 @@ GetDNS
 
 GetDNSStatus
 
-[ModifyNS](../docs/modifyns.md)
+[ModifyNS](../docs/domains/domain-management/name-servers/modifyns.md)
 
 ModifyNSHosting
 

@@ -12,7 +12,7 @@ Service Management
 
 [GetDomainSubServices](../docs/get-domain-sub-services.md)
 
-[GetHomeDomainList](../docs/get-home-domain-list.md)
+[GetHomeDomainList](../docs/domains/domain-management/general/get-home-domain-list.md)
 
 [GetIPResolver](../docs/get-ip-resolver.md)
 

@@ -168,7 +168,7 @@ RequestDateTime=2/5/2015 11:02:27 AM
 Related Commands
 ----------------
 
-[AddBulkDomains](../docs/addbulkdomains.md) BulkDomains
+[AddBulkDomains](../docs/domains/registration/addbulkdomains.md) BulkDomains
 
 [AddToCart](../docs/addtocart.md) oCart
 

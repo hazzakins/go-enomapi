@@ -232,9 +232,9 @@ Related Commands
 
 AddContact
 
-[Contacts](../docs/contacts.md)
+[Contacts](../docs/domains/domain-management/contacts/contacts.md)
 
-[GetContacts](../docs/getcontacts.md)
+[GetContacts](../docs/domains/domain-management/contacts/getcontacts.md)
 
 GetExtAttributes
 

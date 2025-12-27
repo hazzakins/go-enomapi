@@ -223,9 +223,9 @@ GetRegHosts
 
 GetSPFHosts
 
-[SetDNSHost](../docs/setdnshost.md)
+[SetDNSHost](../docs/domains/domain-management/name-servers/setdnshost.md)
 
-[SetHosts](../docs/set-hosts.md)
+[SetHosts](../docs/domains/domain-management/host-records/set-hosts.md)
 
 SetSPFHosts
 

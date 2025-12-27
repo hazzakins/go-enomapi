@@ -7,4 +7,4 @@ DNS Hosting
 
 [PurchaseServices](../docs/purchaseservices.md)
 
-[SetDNSHost](../docs/setdnshost.md)
+[SetDNSHost](../docs/domains/domain-management/name-servers/setdnshost.md)

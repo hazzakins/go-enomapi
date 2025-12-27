@@ -148,16 +148,16 @@ RequestDateTime=2/11/2015 5:18:24 PM
 Related Commands
 ----------------
 
-[CheckNSStatus](../docs/check-ns-status.md)
+[CheckNSStatus](../docs/domains/domain-management/name-servers/check-ns-status.md)
 
-[DeleteNameServer](../docs/delete-name-server.md)
+[DeleteNameServer](../docs/domains/domain-management/name-servers/delete-name-server.md)
 
-[GetDNS](../docs/GetDNS.md)
+[GetDNS](../docs/domains/domain-management/name-servers/GetDNS.md)
 
-[GetDNSStatus](../docs/get-dns-status.md)
+[GetDNSStatus](../docs/domains/domain-management/name-servers/get-dns-status.md)
 
-[ModifyNSHosting](../docs/modify-ns-hosting.md)
+[ModifyNSHosting](../docs/domains/domain-management/name-servers/modify-ns-hosting.md)
 
-[RegisterNameServer](../docs/RegisterNameServer.md)
+[RegisterNameServer](../docs/domains/domain-management/name-servers/RegisterNameServer.md)
 
-[UpdateNameServer](../docs/UpdateNameServer.md)
+[UpdateNameServer](../docs/domains/domain-management/name-servers/UpdateNameServer.md)

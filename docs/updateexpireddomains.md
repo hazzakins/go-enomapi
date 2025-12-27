@@ -150,7 +150,7 @@ GetDomainExp
 
 GetExtendInfo
 
-[GetRenew](../docs/getrenew.md)
+[GetRenew](../docs/domains/renewal/getrenew.md)
 
 InsertNewOrder
 
