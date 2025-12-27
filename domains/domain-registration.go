@@ -331,9 +331,6 @@ func (c *Client) Preconfigure(req PreconfigureRequest) (*response.Preconfigure, 
 			cmd.AddParam("NS"+strconv.Itoa(i+1), ns)
 		}
 	}
-	for key, value := range req.ExtendedAttributes {
-		cmd.AddParam(key, value)
-	}
 	addIntParam(cmd, "UseHostRecords", req.UseHostRecords)
 	if len(req.HostNames) > 0 {
 		cmd.AddParam("HostName", strings.Join(req.HostNames, ","))
@@ -408,6 +405,9 @@ func (c Client) PurchaseWithOptions(req PurchaseRequest) (*response.DomainPurcha
 		for i, ns := range req.NameServers {
 			cmd.AddParam("NS"+strconv.Itoa(i+1), ns)
 		}
+	}
+	for key, value := range req.ExtendedAttributes {
+		cmd.AddParam(key, value)
 	}
 
 	err = c.Execute(cmd, &resp)
