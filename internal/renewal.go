@@ -77,6 +77,42 @@ func (r *InsertNewOrderResponse) Decode() *response.InsertNewOrder {
 	}
 }
 
+type UpdateExpiredDomainsResponse struct {
+	XMLName xml.Name `xml:"interface-response"`
+	Response
+	ResponseMeta
+	ReactivateDomainName ReactivateDomainName `xml:"ReactivateDomainName"`
+}
+
+type ReactivateDomainName struct {
+	Status  bool   `xml:"Status"`
+	OrderID string `xml:"OrderID"`
+}
+
+func (r *UpdateExpiredDomainsResponse) Decode() *response.UpdateExpiredDomains {
+	return &response.UpdateExpiredDomains{
+		Status:       r.ReactivateDomainName.Status,
+		OrderID:      r.ReactivateDomainName.OrderID,
+		ResponseMeta: decodeResponseMeta(r.Response, r.ResponseMeta),
+	}
+}
+
+type UpdateRenewalSettingsResponse struct {
+	XMLName xml.Name `xml:"interface-response"`
+	Response
+	ResponseMeta
+	AcceptTermsStatus string `xml:"AcceptTermsStatus"`
+	RenewalSetting    string `xml:"RenewalSetting"`
+}
+
+func (r *UpdateRenewalSettingsResponse) Decode() *response.UpdateRenewalSettings {
+	return &response.UpdateRenewalSettings{
+		AcceptTermsStatus: r.AcceptTermsStatus,
+		RenewalSetting:    r.RenewalSetting,
+		ResponseMeta:      decodeResponseMeta(r.Response, r.ResponseMeta),
+	}
+}
+
 func decodeInsertNewOrderProductTypes(fields []InsertNewOrderField) []response.InsertNewOrderProductType {
 	if len(fields) == 0 {
 		return nil

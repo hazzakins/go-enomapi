@@ -153,6 +153,19 @@ type SetRenewRequest struct {
 	WPPSRenew         *bool
 }
 
+type UpdateExpiredDomainsRequest struct {
+	DomainName            string
+	NumYears              int
+	CustomerSuppliedPrice string
+}
+
+type UpdateRenewalSettingsRequest struct {
+	RenewalSetting *int
+	RenewalBCC     *bool
+	AcceptTerms    *bool
+	URL            string
+}
+
 // Upstream documentation: https://api.enom.com/docs/extend-rgp
 func (c *Client) ExtendRGP(req ExtendRGPRequest) (*response.ExtendRGP, error) {
 	resp := internal.ExtendRGPResponse{}
@@ -237,5 +250,33 @@ func (c *Client) SetRenew(req SetRenewRequest) (*response.SetRenew, error) {
 	return resp.Decode(), err
 }
 
-// TODO: UpdateExpiredDomains
-// TODO: UpdateRenewalSettings
+// Upstream documentation: https://api.enom.com/docs/updateexpireddomains
+func (c *Client) UpdateExpiredDomains(req UpdateExpiredDomainsRequest) (*response.UpdateExpiredDomains, error) {
+	resp := internal.UpdateExpiredDomainsResponse{}
+
+	cmd := c.NewCommand("UpdateExpiredDomains")
+	cmd.AddParam("DomainName", req.DomainName)
+	cmd.AddParam("NumYears", strconv.Itoa(req.NumYears))
+	if req.CustomerSuppliedPrice != "" {
+		cmd.AddParam("CustomerSuppliedPrice", req.CustomerSuppliedPrice)
+	}
+
+	err := c.Execute(cmd, &resp)
+	return resp.Decode(), err
+}
+
+// Upstream documentation: https://api.enom.com/docs/updaterenewalsettings
+func (c *Client) UpdateRenewalSettings(req UpdateRenewalSettingsRequest) (*response.UpdateRenewalSettings, error) {
+	resp := internal.UpdateRenewalSettingsResponse{}
+
+	cmd := c.NewCommand("UpdateRenewalSettings")
+	addIntParam(cmd, "RenewalSetting", req.RenewalSetting)
+	addBoolIntParam(cmd, "RenewalBCC", req.RenewalBCC)
+	addBoolIntParam(cmd, "AcceptTerms", req.AcceptTerms)
+	if req.URL != "" {
+		cmd.AddParam("URL", req.URL)
+	}
+
+	err := c.Execute(cmd, &resp)
+	return resp.Decode(), err
+}

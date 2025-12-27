@@ -32,3 +32,17 @@ type InsertNewOrderProductType struct {
 	Index       int
 	ProductType string
 }
+
+// UpdateExpiredDomains reports the outcome of reactivating an expired domain.
+type UpdateExpiredDomains struct {
+	Status       bool
+	OrderID      string
+	ResponseMeta ResponseMeta
+}
+
+// UpdateRenewalSettings reports the outcome of updating renewal notifications.
+type UpdateRenewalSettings struct {
+	AcceptTermsStatus string
+	RenewalSetting    string
+	ResponseMeta      ResponseMeta
+}

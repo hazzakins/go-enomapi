@@ -105,7 +105,16 @@ func (c Client) GetContacts(domain enomapi.Domain) (*response.GetContacts, error
 	return resp.Decode(), err
 }
 
-// TODO: GetExtAttributes
+// GetExtAttributes returns the required extended attributes for a TLD.
+func (c Client) GetExtAttributes(tld string) (*response.GetExtAttributes, error) {
+	resp := internal.GetExtAttributesResponse{}
+
+	cmd := c.NewCommand("GetExtAttributes")
+	cmd.AddParam("TLD", tld)
+
+	err := c.Execute(cmd, &resp)
+	return resp.Decode(), err
+}
 
 // GetWhoisContact returns public Whois contact information for a domain name.
 func (c Client) GetWhoisContact(domain enomapi.Domain) (*response.GetWhoisContact, error) {
