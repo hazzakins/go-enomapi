@@ -3,7 +3,6 @@ package domains
 import (
 	"strconv"
 
-	"github.com/hazzakins/go-enomapi"
 	"github.com/hazzakins/go-enomapi/internal"
 	"github.com/hazzakins/go-enomapi/response"
 )
